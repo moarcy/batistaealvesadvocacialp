@@ -339,29 +339,25 @@ export default function Home() {
             <div className="order-2 md:order-1 relative">
                <div className="absolute -inset-10 bg-primary/5 rounded-full blur-[120px] pointer-events-none" />
                <div className="grid grid-cols-2 gap-6 relative">
-                 <div className="space-y-6">
-                   <div className="bg-[#0F172A] p-8 py-12 rounded-2xl border border-white/5 flex flex-col items-center text-center gap-4 transition-all duration-300 hover:border-primary/30 hover:-translate-y-1">
-                      <ShieldCheck className="h-12 w-12 text-primary stroke-[1.5]" />
-                      <h4 className="font-bold text-white text-xl tracking-tight">Sigilo Absoluto</h4>
-                      <p className="text-sm text-gray-400 leading-relaxed">Suas informações 100% protegidas.</p>
-                   </div>
-                   <div className="bg-[#0F172A] p-8 py-12 rounded-2xl border border-white/5 flex flex-col items-center text-center gap-4 transition-all duration-300 hover:border-primary/30 hover:-translate-y-1">
-                      <MessageCircle className="h-12 w-12 text-primary stroke-[1.5]" />
-                      <h4 className="font-bold text-white text-xl tracking-tight">Comunicação Clara</h4>
-                      <p className="text-sm text-gray-400 leading-relaxed">Sem "juridiquês", você entende tudo.</p>
-                   </div>
+                 <div className="bg-[#0F172A] p-8 py-10 rounded-2xl border border-white/5 flex flex-col items-center text-center gap-4 transition-all duration-300 hover:border-primary/30 hover:-translate-y-1">
+                    <ShieldCheck className="h-12 w-12 text-primary stroke-[1.5]" />
+                    <h4 className="font-bold text-white text-lg tracking-tight">Sigilo Absoluto</h4>
+                    <p className="text-sm text-gray-400 leading-relaxed">Suas informações 100% protegidas.</p>
                  </div>
-                 <div className="space-y-6 pt-16">
-                   <div className="bg-[#0F172A] p-8 py-12 rounded-2xl border border-white/5 flex flex-col items-center text-center gap-4 transition-all duration-300 hover:border-primary/30 hover:-translate-y-1">
-                      <FileText className="h-12 w-12 text-primary stroke-[1.5]" />
-                      <h4 className="font-bold text-white text-xl tracking-tight">Ética da OAB</h4>
-                      <p className="text-sm text-gray-400 leading-relaxed">Atuação rigorosa conforme o código.</p>
-                   </div>
-                   <div className="bg-[#0F172A] p-8 py-12 rounded-2xl border border-white/5 flex flex-col items-center text-center gap-4 transition-all duration-300 hover:border-primary/30 hover:-translate-y-1">
-                      <Clock className="h-12 w-12 text-primary stroke-[1.5]" />
-                      <h4 className="font-bold text-white text-xl tracking-tight">Soluções Reais</h4>
-                      <p className="text-sm text-gray-400 leading-relaxed">Foco no resultado, não em promessas.</p>
-                   </div>
+                 <div className="bg-[#0F172A] p-8 py-10 rounded-2xl border border-white/5 flex flex-col items-center text-center gap-4 transition-all duration-300 hover:border-primary/30 hover:-translate-y-1">
+                    <FileText className="h-12 w-12 text-primary stroke-[1.5]" />
+                    <h4 className="font-bold text-white text-lg tracking-tight">Ética da OAB</h4>
+                    <p className="text-sm text-gray-400 leading-relaxed">Atuação rigorosa conforme o código.</p>
+                 </div>
+                 <div className="bg-[#0F172A] p-8 py-10 rounded-2xl border border-white/5 flex flex-col items-center text-center gap-4 transition-all duration-300 hover:border-primary/30 hover:-translate-y-1">
+                    <MessageCircle className="h-12 w-12 text-primary stroke-[1.5]" />
+                    <h4 className="font-bold text-white text-lg tracking-tight">Comunicação Clara</h4>
+                    <p className="text-sm text-gray-400 leading-relaxed">Sem "juridiquês", você entende tudo.</p>
+                 </div>
+                 <div className="bg-[#0F172A] p-8 py-10 rounded-2xl border border-white/5 flex flex-col items-center text-center gap-4 transition-all duration-300 hover:border-primary/30 hover:-translate-y-1">
+                    <Clock className="h-12 w-12 text-primary stroke-[1.5]" />
+                    <h4 className="font-bold text-white text-lg tracking-tight">Soluções Reais</h4>
+                    <p className="text-sm text-gray-400 leading-relaxed">Foco no resultado, não em promessas.</p>
                  </div>
                </div>
             </div>
