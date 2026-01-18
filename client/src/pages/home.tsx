@@ -332,31 +332,36 @@ export default function Home() {
       </section>
 
       {/* Credibility Section */}
-      <section className="py-20 bg-background relative">
+      <section className="py-24 bg-background relative overflow-hidden">
+        <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/dark-matter.png')]" />
         <div className="container mx-auto px-6">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
+          <div className="grid md:grid-cols-2 gap-16 items-center">
             <div className="order-2 md:order-1 relative">
-               <div className="absolute -inset-4 bg-primary/5 rounded-full blur-3xl" />
-               <div className="grid grid-cols-2 gap-4 relative">
-                 <div className="bg-card p-6 rounded-2xl border border-white/5 flex flex-col items-center text-center gap-3">
-                    <ShieldCheck className="h-10 w-10 text-primary" />
-                    <h4 className="font-bold text-white">Sigilo Absoluto</h4>
-                    <p className="text-xs text-gray-500">Suas informações 100% protegidas.</p>
+               <div className="absolute -inset-10 bg-primary/5 rounded-full blur-[120px] pointer-events-none" />
+               <div className="grid grid-cols-2 gap-6 relative">
+                 <div className="space-y-6">
+                   <div className="bg-[#0F172A] p-8 py-12 rounded-2xl border border-white/5 flex flex-col items-center text-center gap-4 transition-all duration-300 hover:border-primary/30 hover:-translate-y-1">
+                      <ShieldCheck className="h-12 w-12 text-primary stroke-[1.5]" />
+                      <h4 className="font-bold text-white text-xl tracking-tight">Sigilo Absoluto</h4>
+                      <p className="text-sm text-gray-400 leading-relaxed">Suas informações 100% protegidas.</p>
+                   </div>
+                   <div className="bg-[#0F172A] p-8 py-12 rounded-2xl border border-white/5 flex flex-col items-center text-center gap-4 transition-all duration-300 hover:border-primary/30 hover:-translate-y-1">
+                      <MessageCircle className="h-12 w-12 text-primary stroke-[1.5]" />
+                      <h4 className="font-bold text-white text-xl tracking-tight">Comunicação Clara</h4>
+                      <p className="text-sm text-gray-400 leading-relaxed">Sem "juridiquês", você entende tudo.</p>
+                   </div>
                  </div>
-                 <div className="bg-card p-6 rounded-2xl border border-white/5 flex flex-col items-center text-center gap-3 mt-8">
-                    <FileText className="h-10 w-10 text-primary" />
-                    <h4 className="font-bold text-white">Ética da OAB</h4>
-                    <p className="text-xs text-gray-500">Atuação rigorosa conforme o código.</p>
-                 </div>
-                 <div className="bg-card p-6 rounded-2xl border border-white/5 flex flex-col items-center text-center gap-3 -mt-8">
-                    <MessageCircle className="h-10 w-10 text-primary" />
-                    <h4 className="font-bold text-white">Comunicação Clara</h4>
-                    <p className="text-xs text-gray-500">Sem "juridiquês", você entende tudo.</p>
-                 </div>
-                 <div className="bg-card p-6 rounded-2xl border border-white/5 flex flex-col items-center text-center gap-3">
-                    <Clock className="h-10 w-10 text-primary" />
-                    <h4 className="font-bold text-white">Soluções Reais</h4>
-                    <p className="text-xs text-gray-500">Foco no resultado, não em promessas.</p>
+                 <div className="space-y-6 pt-16">
+                   <div className="bg-[#0F172A] p-8 py-12 rounded-2xl border border-white/5 flex flex-col items-center text-center gap-4 transition-all duration-300 hover:border-primary/30 hover:-translate-y-1">
+                      <FileText className="h-12 w-12 text-primary stroke-[1.5]" />
+                      <h4 className="font-bold text-white text-xl tracking-tight">Ética da OAB</h4>
+                      <p className="text-sm text-gray-400 leading-relaxed">Atuação rigorosa conforme o código.</p>
+                   </div>
+                   <div className="bg-[#0F172A] p-8 py-12 rounded-2xl border border-white/5 flex flex-col items-center text-center gap-4 transition-all duration-300 hover:border-primary/30 hover:-translate-y-1">
+                      <Clock className="h-12 w-12 text-primary stroke-[1.5]" />
+                      <h4 className="font-bold text-white text-xl tracking-tight">Soluções Reais</h4>
+                      <p className="text-sm text-gray-400 leading-relaxed">Foco no resultado, não em promessas.</p>
+                   </div>
                  </div>
                </div>
             </div>
