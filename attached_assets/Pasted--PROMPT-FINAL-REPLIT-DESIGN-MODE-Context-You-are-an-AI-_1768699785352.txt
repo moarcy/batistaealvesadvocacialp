@@ -1,0 +1,256 @@
+✅ PROMPT FINAL — REPLIT DESIGN MODE
+Context
+
+You are an AI agent specialized in designing high-conversion, SEO-optimized landing pages using React, Tailwind CSS and Shadcn UI.
+You can also generate images, illustrations, subtle animations and fetch stock photos.
+
+Your task is to design a responsive landing page for a Brazilian law firm with a premium dark visual, inspired directly by the provided reference screenshot (dark navy background + golden accents).
+
+Business Information
+
+Brand: Batista & Alves Advocacia
+Location: Miguel Calmon – BA (Brazil)
+Practice Areas:
+
+Direito Previdenciário
+
+Direito Trabalhista
+
+Direito Civil e do Consumidor
+
+Landing page goals:
+
+Convey authority, trust and professionalism
+
+Maintain a friendly, human tone
+
+Strong local SEO (advocacia em Miguel Calmon – BA)
+
+Main conversion goal: redirect users to WhatsApp
+
+Visual Direction (MANDATORY)
+
+The design must strictly follow the dark premium aesthetic of the reference screenshot:
+
+Dark navy / blue-black backgrounds
+
+High contrast white typography
+
+Golden/yellow accents for CTAs and icons
+
+Sophisticated, modern, quiet and confident look
+
+No bright colors, no playful UI, no SaaS-generic visuals
+
+This should feel like:
+
+“A modern, high-end law firm that inspires confidence at first glance.”
+
+Color System (from reference)
+{
+  "colors": {
+    "primaryBackground": "#0B1220",
+    "secondaryBackground": "#111827",
+    "cardBackground": "#0F172A",
+    "overlay": "rgba(255,255,255,0.04)",
+
+    "textPrimary": "#FFFFFF",
+    "textSecondary": "#CBD5E1",
+    "textMuted": "#94A3B8",
+
+    "accentPrimary": "#F5B301",
+    "accentHover": "#E0A800",
+    "accentSoft": "rgba(245,179,1,0.15)"
+  }
+}
+
+Typography
+{
+  "typography": {
+    "fontFamily": {
+      "primary": "Inter",
+      "fallback": "system-ui"
+    },
+    "headings": {
+      "weight": 700,
+      "letterSpacing": "-0.03em",
+      "color": "#FFFFFF"
+    },
+    "body": {
+      "weight": 400,
+      "lineHeight": 1.6,
+      "color": "#CBD5E1"
+    }
+  }
+}
+
+Buttons & Interaction
+{
+  "buttons": {
+    "primary": {
+      "background": "#F5B301",
+      "textColor": "#0B1220",
+      "borderRadius": "9999px",
+      "padding": "px-8 py-4",
+      "shadow": "0 8px 24px rgba(245,179,1,0.25)",
+      "hover": {
+        "background": "#E0A800",
+        "transform": "translateY(-1px)"
+      }
+    }
+  }
+}
+
+
+All primary CTAs must:
+
+Use gold accent
+
+Include WhatsApp icon
+
+Redirect directly to WhatsApp chat
+
+Cards
+{
+  "cards": {
+    "background": "#0F172A",
+    "border": "1px solid rgba(255,255,255,0.06)",
+    "radius": "16px",
+    "shadow": "0 20px 40px rgba(0,0,0,0.4)",
+    "hover": {
+      "transform": "translateY(-4px)",
+      "borderColor": "rgba(245,179,1,0.4)"
+    }
+  }
+}
+
+Icons & Animations
+{
+  "icons": {
+    "library": "Lucide",
+    "style": "outline",
+    "color": "#F5B301",
+    "size": 24
+  },
+  "animations": {
+    "entrance": "fade-up with slight scale",
+    "hover": "ease-out 200ms",
+    "scroll": "staggered reveal"
+  }
+}
+
+Landing Page Structure & Copy
+Section 1 — Hero
+
+Layout: 2 columns
+Background: Dark gradient
+linear-gradient(135deg, #0B1220 0%, #111827 100%)
+
+Left column
+
+H1:
+Advocacia especializada para proteger seus direitos com confiança
+
+Subtitle:
+O Batista & Alves Advocacia atua em Direito Previdenciário, Trabalhista e do Consumidor, ajudando clientes de Miguel Calmon – BA a resolver conflitos jurídicos com clareza, ética e proximidade.
+
+Primary CTA:
+💬 Falar com um advogado agora
+
+Microcopy:
+Atendimento humano • Resposta rápida • Sigilo garantido
+
+Right column
+
+Generate a realistic image of Brazilian lawyers in a modern, elegant office.
+Serious but approachable. Natural lighting. No stock clichés.
+
+Section 2 — Por que Batista & Alves?
+
+Layout: 3 cards
+
+Especialização jurídica
+Atuação focada nas principais áreas que impactam a vida do cidadão.
+
+Atendimento próximo
+Linguagem clara, acompanhamento constante e transparência total.
+
+Atuação local
+Forte presença em Miguel Calmon e região, com conhecimento da realidade local.
+
+Section 3 — Como podemos ajudar
+
+Background: #0F172A
+
+Create a WhatsApp-inspired conversational UI (not ChatGPT).
+
+Suggested questions (hover animated):
+
+“Tenho direito à aposentadoria?”
+
+“O INSS negou meu benefício, e agora?”
+
+“Fui demitido, quais são meus direitos?”
+
+“Posso processar uma empresa?”
+
+CTA:
+➡️ Conversar agora no WhatsApp
+
+Section 4 — Credibilidade
+
+Layout: 2 columns
+Background: subtle textured dark gradient
+
+Highlights:
+
+Sigilo absoluto das informações
+
+Atendimento conforme ética da OAB
+
+Comunicação clara em todas as etapas
+
+Foco em soluções reais, não promessas
+
+Section 5 — CTA Final
+
+Background: #111827
+
+H2:
+Não enfrente seu problema jurídico sozinho
+
+Bullets:
+✓ Atendimento direto com advogado
+✓ Foco em soluções práticas
+✓ Miguel Calmon – BA
+
+CTA:
+💬 Falar agora pelo WhatsApp →
+
+Footer
+
+Logo: Batista & Alves Advocacia
+
+Links: Áreas de Atuação | Sobre | Contato
+
+SEO text:
+Advocacia especializada em Direito Previdenciário, Trabalhista e do Consumidor em Miguel Calmon – BA.
+
+Privacy Policy | Terms
+
+Final Rule
+
+The entire experience must feel:
+
+Dark
+
+Premium
+
+Confident
+
+Trust-driven
+
+Conversion-oriented (WhatsApp)
+
+No extra colors. No playful UI.
+This is a high-end law firm landing page.
