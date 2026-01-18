@@ -278,53 +278,53 @@ export default function Home() {
               </Button>
             </div>
 
-            {/* Visual Abstract Representation */}
-            <div className="relative h-[500px] w-full bg-background rounded-2xl border border-white/5 p-6 overflow-hidden hidden lg:flex flex-col">
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(245,179,1,0.03),transparent_70%)]" />
+            {/* Practice Areas Visual / Trust Elements */}
+            <div className="relative h-full flex flex-col justify-center">
+              <div className="absolute -inset-20 bg-primary/5 rounded-full blur-[140px] pointer-events-none" />
               
-              <div className="flex items-center gap-4 mb-8 border-b border-white/5 pb-4">
-                <div className="h-3 w-3 rounded-full bg-red-500/20" />
-                <div className="h-3 w-3 rounded-full bg-yellow-500/20" />
-                <div className="h-3 w-3 rounded-full bg-green-500/20" />
-                <div className="ml-auto text-xs text-gray-500 font-mono">BATISTA_ALVES_CHAT_V1.0</div>
-              </div>
-
-              <div className="space-y-6 flex-1 overflow-hidden">
-                <div className="flex gap-4">
-                  <div className="h-10 w-10 rounded-full bg-primary flex items-center justify-center shrink-0">
-                    <Scale className="h-5 w-5 text-background" />
-                  </div>
-                  <div className="bg-white/5 p-4 rounded-2xl rounded-tl-none max-w-[80%] border border-white/5">
-                    <p className="text-gray-300 text-sm">Olá! Bem-vindo ao Batista & Alves Advocacia. Como podemos te auxiliar juridicamente hoje?</p>
+              <div className="grid grid-cols-1 gap-6 relative z-10">
+                <div className="bg-[#0F172A]/80 backdrop-blur-sm p-8 rounded-2xl border border-white/5 transition-all duration-300 hover:border-primary/40 group">
+                  <div className="flex items-start gap-6">
+                    <div className="h-14 w-14 rounded-xl bg-primary/10 flex items-center justify-center shrink-0 group-hover:bg-primary/20 transition-colors">
+                      <Scale className="h-7 w-7 text-primary" />
+                    </div>
+                    <div>
+                      <h4 className="text-xl font-bold text-white mb-2">Direito Previdenciário</h4>
+                      <p className="text-gray-400 leading-relaxed">Especialistas em aposentadorias, revisões de benefícios e auxílios do INSS com foco em resultados ágeis.</p>
+                    </div>
                   </div>
                 </div>
 
-                <div className="flex gap-4 flex-row-reverse">
-                  <div className="h-10 w-10 rounded-full bg-gray-700 flex items-center justify-center shrink-0">
-                    <Users className="h-5 w-5 text-gray-400" />
-                  </div>
-                  <div className="bg-primary/10 p-4 rounded-2xl rounded-tr-none max-w-[80%] border border-primary/20">
-                    <p className="text-primary-foreground text-sm">Preciso revisar meu benefício do INSS.</p>
+                <div className="bg-[#0F172A]/80 backdrop-blur-sm p-8 rounded-2xl border border-white/5 transition-all duration-300 hover:border-primary/40 group">
+                  <div className="flex items-start gap-6">
+                    <div className="h-14 w-14 rounded-xl bg-primary/10 flex items-center justify-center shrink-0 group-hover:bg-primary/20 transition-colors">
+                      <Users className="h-7 w-7 text-primary" />
+                    </div>
+                    <div>
+                      <h4 className="text-xl font-bold text-white mb-2">Direito Trabalhista</h4>
+                      <p className="text-gray-400 leading-relaxed">Defesa técnica dos direitos do trabalhador, atuando em rescisões, horas extras e reconhecimento de vínculo.</p>
+                    </div>
                   </div>
                 </div>
 
-                <div className="flex gap-4">
-                  <div className="h-10 w-10 rounded-full bg-primary flex items-center justify-center shrink-0">
-                    <Scale className="h-5 w-5 text-background" />
-                  </div>
-                  <div className="bg-white/5 p-4 rounded-2xl rounded-tl-none max-w-[80%] border border-white/5">
-                    <p className="text-gray-300 text-sm">Perfeito. Somos especialistas em Direito Previdenciário. Vamos agendar uma análise detalhada do seu caso?</p>
-                    <div className="mt-3">
-                       <span className="text-primary text-xs font-bold uppercase tracking-wider">Agendamento Disponível</span>
+                <div className="bg-[#0F172A]/80 backdrop-blur-sm p-8 rounded-2xl border border-white/5 transition-all duration-300 hover:border-primary/40 group">
+                  <div className="flex items-start gap-6">
+                    <div className="h-14 w-14 rounded-xl bg-primary/10 flex items-center justify-center shrink-0 group-hover:bg-primary/20 transition-colors">
+                      <ShieldCheck className="h-7 w-7 text-primary" />
+                    </div>
+                    <div>
+                      <h4 className="text-xl font-bold text-white mb-2">Civil e Consumidor</h4>
+                      <p className="text-gray-400 leading-relaxed">Resolução de conflitos em contratos, danos morais e defesa do consumidor com transparência total.</p>
                     </div>
                   </div>
                 </div>
               </div>
-              
-              <div className="mt-auto pt-4 border-t border-white/5">
-                 <div className="h-12 bg-white/5 rounded-full flex items-center px-4 text-gray-500 text-sm">
-                    Digite sua mensagem...
-                 </div>
+
+              {/* Decorative detail */}
+              <div className="mt-12 flex items-center gap-4 text-primary/40">
+                <div className="h-px flex-1 bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
+                <Scale className="h-4 w-4" />
+                <div className="h-px flex-1 bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
               </div>
             </div>
           </div>
