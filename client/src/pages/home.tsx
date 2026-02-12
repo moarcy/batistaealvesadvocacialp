@@ -222,19 +222,19 @@ export default function Home() {
         <div className="container mx-auto px-6 relative z-10">
           <div className="text-center mb-16 space-y-4">
             <motion.div
-              initial={{ opacity: 0, y: 15 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-10%" }}
-              transition={{ duration: 0.5, ease: "easeOut" }}
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.5 }}
             >
               <h2 className="text-3xl md:text-4xl font-bold text-white">Escritório Especializado em Ação Trabalhista em Salvador</h2>
               <div className="h-1 w-20 bg-primary mx-auto rounded-full mt-6" />
             </motion.div>
             <motion.p
-              initial={{ opacity: 0, y: 15 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-10%" }}
-              transition={{ delay: 0.1, duration: 0.5, ease: "easeOut" }}
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ delay: 0.1, duration: 0.5 }}
               className="text-gray-400 text-lg max-w-3xl mx-auto"
             >
               Atuamos em todas as fases da reclamação trabalhista, desde a análise inicial até a execução de sentença.
@@ -253,10 +253,10 @@ export default function Home() {
             ].map((service, i) => (
               <motion.div
                 key={i}
-                initial={{ opacity: 0, y: 15 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-10%" }}
-                transition={{ delay: i * 0.05, duration: 0.4, ease: "easeOut" }}
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true, amount: 0.1 }}
+                transition={{ delay: i * 0.05, duration: 0.4 }}
                 className="group relative bg-card border border-white/5 p-6 rounded-xl hover:border-primary/40 transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_8px_30px_rgba(245,179,1,0.15)]"
               >
                 <div className="flex items-start gap-4">
@@ -291,10 +291,10 @@ export default function Home() {
         <div className="container mx-auto px-6 relative z-10">
           <div className="max-w-6xl mx-auto">
             <motion.h2
-              initial={{ opacity: 0, y: 15 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-10%" }}
-              transition={{ duration: 0.5, ease: "easeOut" }}
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.5 }}
               className="text-3xl md:text-4xl font-bold text-white mb-12 text-center"
             >
               Fui Demitido em Salvador. Quais São Meus Direitos?
@@ -343,9 +343,9 @@ export default function Home() {
                   ].map((right, i) => (
                     <motion.div
                       key={i}
-                      initial={{ opacity: 0, y: 15 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true, margin: "-10%" }}
+                      initial={{ opacity: 0 }}
+                      whileInView={{ opacity: 1 }}
+                      viewport={{ once: true, amount: 0.1 }}
                       transition={{ delay: i * 0.05, duration: 0.4 }}
                       className="group flex items-center gap-4 bg-background/50 backdrop-blur-sm p-5 rounded-xl border border-white/5 hover:border-primary/30 hover:bg-background/80 transition-all duration-300"
                     >
