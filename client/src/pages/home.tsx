@@ -572,9 +572,7 @@ export default function Home() {
             <ChevronRight className="ml-2 h-5 w-5" />
           </Button>
 
-          <p className="mt-8 text-gray-500">
-            📞 (74) 99944-3002
-          </p>
+
         </div>
       </section>
 
