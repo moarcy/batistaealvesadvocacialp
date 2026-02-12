@@ -45,19 +45,12 @@ export default function Home() {
       {/* Navigation */}
       <nav className="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-md border-b border-white/5">
         <div className="container mx-auto px-6 h-20 flex items-center justify-between">
-          <a
-            href="#"
-            onClick={(e) => {
-              e.preventDefault();
-              window.scrollTo({ top: 0, behavior: 'smooth' });
-            }}
-            className="flex items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity"
-          >
+          <div className="flex items-center gap-2">
             <Scale className="h-8 w-8 text-primary" />
             <span className="text-xl font-bold tracking-tight text-white">
               Batista & Alves <span className="text-primary">Advocacia</span>
             </span>
-          </a>
+          </div>
 
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center gap-8">
@@ -161,33 +154,20 @@ export default function Home() {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="relative"
             >
-              <div className="grid grid-cols-2 gap-4">
-                {/* Foto Felipe Alves - Centralizada no rosto */}
-                <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-white/10 group">
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0B1220] via-transparent to-transparent opacity-40 z-10" />
-                  <img
-                    src="/team/advogado-felipe-alves.jpeg"
-                    alt="Dr. Felipe Alves - Advogado Trabalhista"
-                    className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700" style={{ objectPosition: "center 20%" }}
-                  />
-                </div>
-
-                {/* Foto Hugo */}
-                <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-white/10 group">
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0B1220] via-transparent to-transparent opacity-40 z-10" />
-                  <img
-                    src="/team/advogado-hugo.jpeg"
-                    alt="Dr. Hugo - Advogado Trabalhista"
-                    className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
-                  />
-                </div>
+              <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-white/10 group">
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0B1220] via-transparent to-transparent opacity-60 z-10" />
+                <img
+                  src={heroImage}
+                  alt="Advogados Batista & Alves"
+                  className="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-700"
+                />
               </div>
               {/* Floating Badge */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 1, duration: 0.5 }}
-                className="absolute -bottom-6 left-1/2 -translate-x-1/2 bg-card border border-white/10 p-4 rounded-xl shadow-xl z-20 hidden md:block"
+                className="absolute -bottom-6 -left-6 lg:left-6 bg-card border border-white/10 p-4 rounded-xl shadow-xl z-20 hidden md:block"
               >
                 <div className="flex items-center gap-3">
                   <div className="h-10 w-10 rounded-full bg-primary/20 flex items-center justify-center">
@@ -206,30 +186,14 @@ export default function Home() {
       </section>
 
       {/* Escritório Especializado Section */}
-      <section id="areas" className="py-24 bg-background relative overflow-hidden">
-        {/* Decorative background elements */}
-        <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-[120px] pointer-events-none" />
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-primary/5 rounded-full blur-[120px] pointer-events-none" />
-
-        <div className="container mx-auto px-6 relative z-10">
+      <section id="areas" className="py-24 bg-background relative">
+        <div className="container mx-auto px-6">
           <div className="text-center mb-16 space-y-4">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-            >
-              <h2 className="text-3xl md:text-4xl font-bold text-white">Escritório Especializado em Ação Trabalhista em Salvador</h2>
-              <div className="h-1 w-20 bg-primary mx-auto rounded-full mt-6" />
-            </motion.div>
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-              className="text-gray-400 text-lg max-w-3xl mx-auto"
-            >
+            <h2 className="text-3xl md:text-4xl font-bold text-white">Escritório Especializado em Ação Trabalhista em Salvador</h2>
+            <div className="h-1 w-20 bg-primary mx-auto rounded-full" />
+            <p className="text-gray-400 text-lg max-w-3xl mx-auto">
               Atuamos em todas as fases da reclamação trabalhista, desde a análise inicial até a execução de sentença.
-            </motion.p>
+            </p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
@@ -247,190 +211,124 @@ export default function Home() {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.08 }}
-                className="group relative bg-card border border-white/5 p-6 rounded-xl hover:border-primary/40 transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_8px_30px_rgba(245,179,1,0.15)]"
+                transition={{ delay: i * 0.1 }}
+                className="bg-card border border-white/5 p-6 rounded-xl hover:border-primary/40 transition-all duration-300 hover:-translate-y-1"
               >
                 <div className="flex items-start gap-4">
-                  <div className="relative">
-                    <div className="h-12 w-12 rounded-xl bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-300">
-                      <span className="text-primary font-bold text-lg">{String(i + 1).padStart(2, '0')}</span>
-                    </div>
+                  <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0 mt-1">
+                    <CheckCircle2 className="h-5 w-5 text-primary" />
                   </div>
-                  <p className="text-gray-200 leading-relaxed font-medium">{service}</p>
+                  <p className="text-gray-200 leading-relaxed">{service}</p>
                 </div>
               </motion.div>
             ))}
           </div>
 
-          <motion.p
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            className="text-center text-gray-400 text-lg"
-          >
+          <p className="text-center text-gray-400 text-lg">
             Cada caso é avaliado com base na legislação atualizada e jurisprudência dos Tribunais do Trabalho.
-          </motion.p>
+          </p>
         </div>
       </section>
 
       {/* Fui Demitido Section */}
-      <section className="py-24 bg-gradient-to-br from-card via-card to-background relative overflow-hidden">
-        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
-        <div className="absolute top-10 right-10 w-72 h-72 bg-primary/10 rounded-full blur-[100px] pointer-events-none" />
+      <section className="py-24 bg-card relative overflow-hidden">
+        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
 
-        <div className="container mx-auto px-6 relative z-10">
-          <div className="max-w-6xl mx-auto">
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-3xl md:text-4xl font-bold text-white mb-12"
-            >
-              Fui Demitido em Salvador. Quais São Meus Direitos?
-            </motion.h2>
+        <div className="container mx-auto px-6">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">Fui Demitido em Salvador. Quais São Meus Direitos?</h2>
+            <p className="text-gray-400 text-lg mb-8">
+              Ao ser demitido, o trabalhador pode ter direito a:
+            </p>
 
-            <div className="grid lg:grid-cols-5 gap-8 items-start">
-              {/* Left highlight box */}
-              <motion.div
-                initial={{ opacity: 0, x: -30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                className="lg:col-span-2"
-              >
-                <div className="bg-gradient-to-br from-primary/20 to-primary/5 border border-primary/30 p-8 rounded-2xl sticky top-24">
-                  <div className="h-16 w-16 rounded-2xl bg-primary/20 flex items-center justify-center mb-6">
-                    <Scale className="h-8 w-8 text-primary" />
+            <div className="grid md:grid-cols-2 gap-6 mb-8">
+              {[
+                "Saldo de salário",
+                "Aviso prévio",
+                "Férias + 1/3",
+                "13º salário proporcional",
+                "FGTS + multa de 40%",
+                "Seguro-desemprego"
+              ].map((right, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.1 }}
+                  className="flex items-center gap-3 bg-background p-4 rounded-lg border border-white/5"
+                >
+                  <div className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
+                    <CheckCircle2 className="h-4 w-4 text-primary" />
                   </div>
-                  <h3 className="text-2xl font-bold text-white mb-4">Auditoria Completa</h3>
-                  <p className="text-gray-300 leading-relaxed mb-6">
-                    Realizamos auditoria completa da rescisão para identificar valores não pagos corretamente.
-                  </p>
-                  <Button
-                    className="w-full bg-primary text-background hover:bg-primary/90 font-bold"
-                    onClick={() => window.open(WHATSAPP_LINK, "_blank")}
-                  >
-                    <MessageCircle className="mr-2 h-4 w-4" />
-                    Solicitar Análise
-                  </Button>
-                </div>
-              </motion.div>
+                  <span className="text-gray-200 font-medium">{right}</span>
+                </motion.div>
+              ))}
+            </div>
 
-              {/* Rights list */}
-              <div className="lg:col-span-3">
-                <p className="text-gray-400 text-lg mb-6">
-                  Ao ser demitido, o trabalhador pode ter direito a:
-                </p>
-                <div className="grid gap-4">
-                  {[
-                    "Saldo de salário",
-                    "Aviso prévio",
-                    "Férias + 1/3",
-                    "13º salário proporcional",
-                    "FGTS + multa de 40%",
-                    "Seguro-desemprego"
-                  ].map((right, i) => (
-                    <motion.div
-                      key={i}
-                      initial={{ opacity: 0, x: 20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: i * 0.08 }}
-                      className="group flex items-center gap-4 bg-background/50 backdrop-blur-sm p-5 rounded-xl border border-white/5 hover:border-primary/30 hover:bg-background/80 transition-all duration-300"
-                    >
-                      <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0 group-hover:bg-primary/20 transition-colors">
-                        <CheckCircle2 className="h-5 w-5 text-primary" />
-                      </div>
-                      <span className="text-gray-200 font-semibold text-lg">{right}</span>
-                    </motion.div>
-                  ))}
-                </div>
-              </div>
+            <div className="bg-primary/10 border border-primary/20 p-6 rounded-xl">
+              <p className="text-gray-200 text-lg">
+                <strong className="text-primary">Auditoria completa:</strong> Realizamos auditoria completa da rescisão para identificar valores não pagos corretamente.
+              </p>
             </div>
           </div>
         </div>
       </section>
 
       {/* Processo Trabalhista Section */}
-      <section className="py-24 bg-[#0B1220] relative overflow-hidden">
-        {/* Decorative grid pattern */}
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(245,179,1,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(245,179,1,0.03)_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_50%,#000_70%,transparent_100%)]" />
+      <section className="py-24 bg-background relative">
+        <div className="container mx-auto px-6">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-6 text-center">Processo Trabalhista em Salvador: Como Funciona?</h2>
+            <div className="h-1 w-20 bg-primary mx-auto rounded-full mb-12" />
 
-        <div className="container mx-auto px-6 relative z-10">
-          <div className="max-w-5xl mx-auto">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-center mb-16"
-            >
-              <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">Processo Trabalhista em Salvador: Como Funciona?</h2>
-              <div className="h-1 w-20 bg-primary mx-auto rounded-full" />
-            </motion.div>
-
-            {/* Timeline */}
-            <div className="relative">
-              {/* Vertical line */}
-              <div className="absolute left-8 top-8 bottom-8 w-0.5 bg-gradient-to-b from-primary via-primary/50 to-primary/20 hidden md:block" />
-
-              <div className="space-y-8">
-                {[
-                  {
-                    title: "Análise Inicial",
-                    description: "Avaliação detalhada de documentos e histórico contratual.",
-                    icon: FileText
-                  },
-                  {
-                    title: "Cálculo de Valores",
-                    description: "Apuração técnica das verbas devidas.",
-                    icon: TrendingUp
-                  },
-                  {
-                    title: "Protocolo da Ação",
-                    description: "Distribuição da reclamação trabalhista perante a Justiça do Trabalho em Salvador.",
-                    icon: Briefcase
-                  },
-                  {
-                    title: "Audiência e Instrução",
-                    description: "Atuação estratégica na produção de provas e sustentação jurídica.",
-                    icon: Users
-                  },
-                  {
-                    title: "Execução",
-                    description: "Cobrança efetiva após decisão favorável.",
-                    icon: Award
-                  }
-                ].map((step, i) => (
-                  <motion.div
-                    key={i}
-                    initial={{ opacity: 0, x: -30 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: i * 0.15 }}
-                    className="relative flex gap-6 items-start group"
-                  >
-                    {/* Timeline dot */}
-                    <div className="relative z-10 hidden md:block">
-                      <div className="h-16 w-16 rounded-2xl bg-gradient-to-br from-primary to-primary/60 flex items-center justify-center shadow-[0_0_30px_rgba(245,179,1,0.3)] group-hover:shadow-[0_0_40px_rgba(245,179,1,0.5)] transition-all duration-300">
-                        <step.icon className="h-7 w-7 text-background" />
-                      </div>
+            <div className="space-y-6">
+              {[
+                {
+                  title: "Análise Inicial",
+                  description: "Avaliação detalhada de documentos e histórico contratual.",
+                  icon: FileText
+                },
+                {
+                  title: "Cálculo de Valores",
+                  description: "Apuração técnica das verbas devidas.",
+                  icon: TrendingUp
+                },
+                {
+                  title: "Protocolo da Ação",
+                  description: "Distribuição da reclamação trabalhista perante a Justiça do Trabalho em Salvador.",
+                  icon: Briefcase
+                },
+                {
+                  title: "Audiência e Instrução",
+                  description: "Atuação estratégica na produção de provas e sustentação jurídica.",
+                  icon: Users
+                },
+                {
+                  title: "Execução",
+                  description: "Cobrança efetiva após decisão favorável.",
+                  icon: Award
+                }
+              ].map((step, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.1 }}
+                  className="bg-card border border-white/5 p-6 rounded-xl hover:border-primary/40 transition-all duration-300"
+                >
+                  <div className="flex items-start gap-4">
+                    <div className="h-12 w-12 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+                      <step.icon className="h-6 w-6 text-primary" />
                     </div>
-
-                    {/* Content card */}
-                    <div className="flex-1 bg-gradient-to-br from-card to-card/50 border border-white/10 p-6 md:p-8 rounded-2xl hover:border-primary/40 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_30px_rgba(245,179,1,0.1)]">
-                      <div className="flex items-start gap-4 md:hidden mb-4">
-                        <div className="h-12 w-12 rounded-xl bg-primary/20 flex items-center justify-center shrink-0">
-                          <step.icon className="h-6 w-6 text-primary" />
-                        </div>
-                      </div>
-                      <div className="flex items-start justify-between gap-4 mb-3">
-                        <h3 className="text-xl md:text-2xl font-bold text-white">{step.title}</h3>
-                        <span className="text-primary/40 font-bold text-3xl hidden md:block">{String(i + 1).padStart(2, '0')}</span>
-                      </div>
-                      <p className="text-gray-400 leading-relaxed text-lg">{step.description}</p>
+                    <div>
+                      <h3 className="text-xl font-bold text-white mb-2">{step.title}</h3>
+                      <p className="text-gray-400 leading-relaxed">{step.description}</p>
                     </div>
-                  </motion.div>
-                ))}
-              </div>
+                  </div>
+                </motion.div>
+              ))}
             </div>
           </div>
         </div>
@@ -633,4 +531,3 @@ export default function Home() {
     </div>
   );
 }
-
