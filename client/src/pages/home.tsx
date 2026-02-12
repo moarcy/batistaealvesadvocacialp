@@ -26,8 +26,15 @@ export default function Home() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const fadeInUp: Variants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: [0.25, 0.1, 0.25, 1] } }
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.8,
+        ease: [0.22, 1, 0.36, 1]
+      }
+    }
   };
 
   const staggerContainer: Variants = {
@@ -54,10 +61,10 @@ export default function Home() {
             }}
             className="flex items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity"
           >
-            <Scale className="h-8 w-8 text-primary" />
-            <span className="text-xl font-bold tracking-tight text-white">
-              Batista & Alves <span className="text-primary">Advocacia</span>
-            </span>
+            <div className="flex items-center gap-2">
+              <Scale className="h-8 w-8 text-primary" />
+              <span className="text-xl font-bold text-white">Batista & Alves Advocacia</span>
+            </div>
           </a>
 
           {/* Desktop Menu */}
@@ -157,9 +164,9 @@ export default function Home() {
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
               className="relative"
             >
               <div className="grid grid-cols-2 gap-4">
@@ -215,18 +222,19 @@ export default function Home() {
         <div className="container mx-auto px-6 relative z-10">
           <div className="text-center mb-16 space-y-4">
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: true, margin: "-10%" }}
+              transition={{ duration: 0.5, ease: "easeOut" }}
             >
               <h2 className="text-3xl md:text-4xl font-bold text-white">Escritório Especializado em Ação Trabalhista em Salvador</h2>
               <div className="h-1 w-20 bg-primary mx-auto rounded-full mt-6" />
             </motion.div>
             <motion.p
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
+              viewport={{ once: true, margin: "-10%" }}
+              transition={{ delay: 0.1, duration: 0.5, ease: "easeOut" }}
               className="text-gray-400 text-lg max-w-3xl mx-auto"
             >
               Atuamos em todas as fases da reclamação trabalhista, desde a análise inicial até a execução de sentença.
@@ -245,10 +253,10 @@ export default function Home() {
             ].map((service, i) => (
               <motion.div
                 key={i}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 15 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.08 }}
+                viewport={{ once: true, margin: "-10%" }}
+                transition={{ delay: i * 0.05, duration: 0.4, ease: "easeOut" }}
                 className="group relative bg-card border border-white/5 p-6 rounded-xl hover:border-primary/40 transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_8px_30px_rgba(245,179,1,0.15)]"
               >
                 <div className="flex items-start gap-4">
@@ -266,7 +274,8 @@ export default function Home() {
           <motion.p
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.6 }}
             className="text-center text-gray-400 text-lg"
           >
             Cada caso é avaliado com base na legislação atualizada e jurisprudência dos Tribunais do Trabalho.
@@ -282,10 +291,11 @@ export default function Home() {
         <div className="container mx-auto px-6 relative z-10">
           <div className="max-w-6xl mx-auto">
             <motion.h2
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-3xl md:text-4xl font-bold text-white mb-12"
+              viewport={{ once: true, margin: "-10%" }}
+              transition={{ duration: 0.5, ease: "easeOut" }}
+              className="text-3xl md:text-4xl font-bold text-white mb-12 text-center"
             >
               Fui Demitido em Salvador. Quais São Meus Direitos?
             </motion.h2>
@@ -293,9 +303,10 @@ export default function Home() {
             <div className="grid lg:grid-cols-5 gap-8 items-center">
               {/* Left highlight box */}
               <motion.div
-                initial={{ opacity: 0, x: -30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.6, ease: "easeOut" }}
                 className="lg:col-span-2"
               >
                 <div className="bg-gradient-to-br from-primary/20 to-primary/5 border border-primary/30 p-8 rounded-2xl sticky top-24">
@@ -332,10 +343,10 @@ export default function Home() {
                   ].map((right, i) => (
                     <motion.div
                       key={i}
-                      initial={{ opacity: 0, x: 20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: i * 0.08 }}
+                      initial={{ opacity: 0, y: 15 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true, margin: "-10%" }}
+                      transition={{ delay: i * 0.05, duration: 0.4 }}
                       className="group flex items-center gap-4 bg-background/50 backdrop-blur-sm p-5 rounded-xl border border-white/5 hover:border-primary/30 hover:bg-background/80 transition-all duration-300"
                     >
                       <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0 group-hover:bg-primary/20 transition-colors">
@@ -359,9 +370,10 @@ export default function Home() {
         <div className="container mx-auto px-6 relative z-10">
           <div className="max-w-5xl mx-auto">
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
               className="text-center mb-16"
             >
               <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">Processo Trabalhista em Salvador: Como Funciona?</h2>
@@ -403,10 +415,10 @@ export default function Home() {
                 ].map((step, i) => (
                   <motion.div
                     key={i}
-                    initial={{ opacity: 0, x: -30 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: i * 0.15 }}
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-50px" }}
+                    transition={{ delay: i * 0.15, duration: 0.6, ease: "easeOut" }}
                     className="relative flex gap-6 items-start group"
                   >
                     {/* Timeline dot */}
@@ -485,10 +497,10 @@ export default function Home() {
             ].map((item, i) => (
               <motion.div
                 key={i}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ delay: i * 0.1, duration: 0.5, ease: "easeOut" }}
               >
                 <Card className="bg-background border-white/5 hover:border-primary/40 transition-all duration-300 hover:-translate-y-2 h-full group">
                   <CardContent className="p-8 space-y-4">
@@ -583,10 +595,10 @@ export default function Home() {
           <div className="grid md:grid-cols-4 gap-12 mb-12">
             <div className="col-span-2">
               <div className="flex items-center gap-2 mb-6">
-                <Scale className="h-6 w-6 text-primary" />
-                <span className="text-xl font-bold text-white">
-                  Batista & Alves <span className="text-primary">Advocacia</span>
-                </span>
+                <div className="flex items-center gap-2 mb-6">
+                  <Scale className="h-10 w-10 text-primary" />
+                  <span className="text-2xl font-bold text-white">Batista & Alves Advocacia</span>
+                </div>
               </div>
               <p className="text-gray-500 max-w-md leading-relaxed">
                 Advocacia especializada em Direito Trabalhista em Salvador.
