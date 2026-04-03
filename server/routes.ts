@@ -45,7 +45,7 @@ export async function registerRoutes(
   });
 
   // Track event endpoint (public)
-  app.post("/api/analytics/track", async (req, res) => {
+  app.post("/api/app-events", async (req, res) => {
     try {
       const { eventType, path, sessionId } = req.body;
       
@@ -67,7 +67,7 @@ export async function registerRoutes(
   });
 
   // Fetch metrics endpoint (protected)
-  app.get("/api/analytics/metrics", async (req, res) => {
+  app.get("/api/app-metrics", async (req, res) => {
     if (!(req.session as any).authenticated) {
       return res.status(401).json({ error: "Não autorizado" });
     }

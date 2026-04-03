@@ -85,7 +85,7 @@ export default function Dashboard() {
 
   const fetchMetrics = async (startDate?: string, endDate?: string) => {
     try {
-      let url = "/api/analytics/metrics";
+      let url = "/api/app-metrics";
       const params = new URLSearchParams();
       if (startDate) params.append("startDate", startDate);
       if (endDate) params.append("endDate", endDate);

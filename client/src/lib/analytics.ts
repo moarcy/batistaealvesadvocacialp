@@ -10,7 +10,7 @@ const getOrCreateSessionId = () => {
 export const trackEvent = async (eventType: 'pageview' | 'click', path: string) => {
   try {
     const sessionId = getOrCreateSessionId();
-    await fetch("/api/analytics/track", {
+    await fetch("/api/app-events", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
