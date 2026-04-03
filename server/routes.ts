@@ -2,8 +2,8 @@ import type { Express } from "express";
 import { createServer, type Server } from "http";
 import session from "express-session";
 import connectPgSimple from "connect-pg-simple";
-import { storage } from "./storage";
-import { pool } from "./db";
+import { storage } from "./storage.js";
+import { pool } from "./db.js";
 
 export async function registerRoutes(
   httpServer: Server,

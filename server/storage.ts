@@ -1,5 +1,5 @@
-import { type User, type InsertUser, type AnalyticsEvent, type InsertAnalyticsEvent, users, analyticsEvents } from "../shared/schema";
-import { db } from "./db";
+import { type User, type InsertUser, type AnalyticsEvent, type InsertAnalyticsEvent, users, analyticsEvents } from "../shared/schema.js";
+import { db } from "./db.js";
 import { eq, and, gte, lte } from "drizzle-orm";
 import { randomUUID } from "crypto";
 
