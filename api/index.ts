@@ -1,36 +1,35 @@
 import express from 'express';
+import { registerRoutes } from '../server/routes';
+import { createServer } from 'http';
 
-let appPromise: Promise<any>;
+let appInstance: any;
+let initError: any;
 
 try {
-  const init = async () => {
-    const app = express();
-    app.use(express.json());
-    app.use(express.urlencoded({ extended: false }));
+  const app = express();
+  app.use(express.json());
+  app.use(express.urlencoded({ extended: false }));
 
-    const { registerRoutes } = await import('../server/routes');
-    const { createServer } = await import('http');
-    
-    const httpServer = createServer(app);
-    await registerRoutes(httpServer, app);
-    
-    return app;
-  };
-  appPromise = init();
+  const httpServer = createServer(app);
+  
+  // Registrar rotas de forma síncrona/segura
+  registerRoutes(httpServer, app).catch(err => {
+    console.error("Route registration error", err);
+  });
+  
+  appInstance = app;
 } catch (err) {
-  appPromise = Promise.reject(err);
+  initError = err;
 }
 
-export default async function handler(req: any, res: any) {
-  try {
-    const app = await appPromise;
-    return app(req, res);
-  } catch (err: any) {
-    console.error("Vercel Serverless Error:", err);
-    res.status(500).json({ 
+export default function handler(req: any, res: any) {
+  if (initError) {
+    console.error("Vercel Serverless Error:", initError);
+    return res.status(500).json({ 
       error: "Vercel Serverless Initialization Error", 
-      message: err?.message || String(err),
-      stack: err?.stack
+      message: initError?.message || String(initError),
     });
   }
+  
+  return appInstance(req, res);
 }
