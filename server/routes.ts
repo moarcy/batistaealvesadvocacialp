@@ -9,18 +9,21 @@ export async function registerRoutes(
   httpServer: Server,
   app: Express
 ): Promise<Server> {
+  // Configuração necessária para Vercel identificar o proxy e salvar cookies
+  app.set("trust proxy", 1);
+
   const PostgresStore = connectPgSimple(session);
 
   // Setup persistent session for authentication (PostgreSQL)
   app.use(
     session({
       store: new PostgresStore({
-        pool: pool,
+        pool: pool, // Usando o pool importado de ./db.js
         tableName: "sessions",
-        createTableIfMissing: false, // Tabela será criada manualmente no Neon
+        createTableIfMissing: false, 
       }),
       cookie: { 
-        maxAge: 30 * 24 * 60 * 60 * 1000, // 30 dias
+        maxAge: 30 * 24 * 60 * 60 * 1000, 
         secure: process.env.NODE_ENV === "production",
         sameSite: "lax",
       },
@@ -33,7 +36,8 @@ export async function registerRoutes(
   // Simple auth endpoint
   app.post("/api/login", (req, res) => {
     const { username, password } = req.body;
-    if (username === "batistaealvesadvocacia" && password === "Admin123!") {
+    // Usamos trim() para remover espaços acidentais no início ou fim
+    if (username?.trim() === "batistaealvesadvocacia" && password === "Admin123!") {
       (req.session as any).authenticated = true;
       res.json({ success: true });
     } else {
