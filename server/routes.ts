@@ -16,8 +16,8 @@ export async function registerRoutes(
     session({
       store: new PostgresStore({
         pool: pool,
-        tableName: "sessions", // opcional, mas garante padronização
-        createTableIfMissing: true, // Crucial para não ter que criar a tabela de sessões manualmente
+        tableName: "sessions",
+        createTableIfMissing: false, // Tabela será criada manualmente no Neon
       }),
       cookie: { 
         maxAge: 30 * 24 * 60 * 60 * 1000, // 30 dias
