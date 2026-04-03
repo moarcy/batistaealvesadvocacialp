@@ -1,26 +1,32 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
 import session from "express-session";
-import createMemoryStoreCb from "memorystore";
+import connectPgSimple from "connect-pg-simple";
 import { storage } from "./storage";
+import { pool } from "./db";
 
 export async function registerRoutes(
   httpServer: Server,
   app: Express
 ): Promise<Server> {
-  const createMemoryStore = (createMemoryStoreCb as any).default || createMemoryStoreCb;
-  const MemoryStore = createMemoryStore(session);
+  const PostgresStore = connectPgSimple(session);
 
-  // Setup simple session for authentication
+  // Setup persistent session for authentication (PostgreSQL)
   app.use(
     session({
-      cookie: { maxAge: 86400000 },
-      store: new MemoryStore({
-        checkPeriod: 86400000,
+      store: new PostgresStore({
+        pool: pool,
+        tableName: "sessions", // opcional, mas garante padronização
+        createTableIfMissing: true, // Crucial para não ter que criar a tabela de sessões manualmente
       }),
+      cookie: { 
+        maxAge: 30 * 24 * 60 * 60 * 1000, // 30 dias
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "lax",
+      },
       resave: false,
       saveUninitialized: false,
-      secret: "batista_alves_analytics_secret",
+      secret: "batista_alves_analytics_secret_2024",
     })
   );
 
