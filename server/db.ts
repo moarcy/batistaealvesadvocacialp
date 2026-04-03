@@ -1,8 +1,9 @@
 import { Pool, neonConfig } from '@neondatabase/serverless';
 import { drizzle } from 'drizzle-orm/neon-serverless';
-import ws from "ws";
+import wsCb from "ws";
 import * as schema from "../shared/schema";
 
+const ws = (wsCb as any).default || wsCb;
 neonConfig.webSocketConstructor = ws;
 
 if (!process.env.DATABASE_URL) {

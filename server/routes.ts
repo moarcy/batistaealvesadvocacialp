@@ -1,13 +1,14 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
 import session from "express-session";
-import createMemoryStore from "memorystore";
+import createMemoryStoreCb from "memorystore";
 import { storage } from "./storage";
 
 export async function registerRoutes(
   httpServer: Server,
   app: Express
 ): Promise<Server> {
+  const createMemoryStore = (createMemoryStoreCb as any).default || createMemoryStoreCb;
   const MemoryStore = createMemoryStore(session);
 
   // Setup simple session for authentication
