@@ -1,4 +1,4 @@
-import { type User, type InsertUser, type AnalyticsEvent, type InsertAnalyticsEvent, users, analyticsEvents } from "@shared/schema";
+import { type User, type InsertUser, type AnalyticsEvent, type InsertAnalyticsEvent, users, analyticsEvents } from "../shared/schema";
 import { db } from "./db";
 import { eq, and, gte, lte } from "drizzle-orm";
 import { randomUUID } from "crypto";
