@@ -9,10 +9,26 @@ export const users = pgTable("users", {
   password: text("password").notNull(),
 });
 
+export const analyticsEvents = pgTable("analytics_events", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  eventType: text("event_type").notNull(), // 'pageview' or 'click'
+  path: text("path").notNull(),
+  sessionId: text("session_id").notNull(),
+  createdAt: text("created_at").default(sql`CURRENT_TIMESTAMP`).notNull(),
+});
+
 export const insertUserSchema = createInsertSchema(users).pick({
   username: true,
   password: true,
 });
 
+export const insertAnalyticsEventSchema = createInsertSchema(analyticsEvents).pick({
+  eventType: true,
+  path: true,
+  sessionId: true,
+});
+
 export type InsertUser = z.infer<typeof insertUserSchema>;
 export type User = typeof users.$inferSelect;
+export type InsertAnalyticsEvent = z.infer<typeof insertAnalyticsEventSchema>;
+export type AnalyticsEvent = typeof analyticsEvents.$inferSelect;

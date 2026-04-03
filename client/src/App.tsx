@@ -5,11 +5,22 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/not-found";
 import Home from "@/pages/home";
+import Dashboard from "@/pages/dashboard";
+import { useEffect } from "react";
+import { useLocation } from "wouter";
+import { trackEvent } from "./lib/analytics";
 
 function Router() {
+  const [location] = useLocation();
+
+  useEffect(() => {
+    trackEvent('pageview', location);
+  }, [location]);
+
   return (
     <Switch>
       <Route path="/" component={Home} />
+      <Route path="/dashboard" component={Dashboard} />
       <Route component={NotFound} />
     </Switch>
   );

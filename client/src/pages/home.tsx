@@ -1,4 +1,5 @@
 import { motion, Variants } from "framer-motion";
+import { trackEvent } from "@/lib/analytics";
 import {
   Scale,
   Users,
@@ -74,7 +75,10 @@ export default function Home() {
             <a href="#contato" className="text-sm font-medium text-gray-300 hover:text-primary transition-colors">Contato</a>
             <Button
               className="bg-primary text-background hover:bg-primary/90 font-semibold rounded-full px-6 shadow-[0_4px_14px_rgba(245,179,1,0.2)]"
-              onClick={() => window.open(WHATSAPP_LINK, "_blank")}
+              onClick={() => {
+                trackEvent('click', WHATSAPP_LINK);
+                window.open(WHATSAPP_LINK, "_blank");
+              }}
             >
               Falar no WhatsApp
             </Button>
@@ -98,7 +102,10 @@ export default function Home() {
             <a href="#contato" className="text-lg font-medium text-gray-300" onClick={() => setIsMenuOpen(false)}>Contato</a>
             <Button
               className="w-full bg-primary text-background font-bold mt-2"
-              onClick={() => window.open(WHATSAPP_LINK, "_blank")}
+              onClick={() => {
+                trackEvent('click', WHATSAPP_LINK);
+                window.open(WHATSAPP_LINK, "_blank");
+              }}
             >
               Falar no WhatsApp
             </Button>
@@ -151,7 +158,10 @@ export default function Home() {
                 <Button
                   size="lg"
                   className="relative overflow-hidden bg-primary text-[#080C14] hover:bg-[#D49A00] font-bold text-lg h-16 px-10 rounded-full shadow-[0_0_40px_rgba(245,179,1,0.3)] hover:shadow-[0_0_60px_rgba(245,179,1,0.5)] hover:-translate-y-1 transition-all duration-300 group"
-                  onClick={() => window.open(WHATSAPP_LINK, "_blank")}
+                  onClick={() => {
+                    trackEvent('click', WHATSAPP_LINK);
+                    window.open(WHATSAPP_LINK, "_blank");
+                  }}
                 >
                   <span className="relative z-10 flex items-center gap-2">
                     <MessageCircle className="h-5 w-5 fill-current" />
@@ -405,7 +415,10 @@ export default function Home() {
 
                   <Button
                     className="w-full bg-primary text-[#080C14] hover:bg-[#D49A00] font-bold h-12 rounded-xl text-base shadow-lg shadow-primary/10 hover:shadow-primary/30 transition-all duration-300"
-                    onClick={() => window.open(WHATSAPP_LINK, "_blank")}
+                    onClick={() => {
+                      trackEvent('click', WHATSAPP_LINK);
+                      window.open(WHATSAPP_LINK, "_blank");
+                    }}
                   >
                     <MessageCircle className="mr-2 h-5 w-5" />
                     Solicitar Análise
@@ -630,7 +643,10 @@ export default function Home() {
             <Button
               size="lg"
               className="bg-[#080C14] text-white hover:bg-black/80 font-bold text-lg h-14 px-10 rounded-full shadow-2xl hover:scale-105 transition-all duration-300"
-              onClick={() => window.open(WHATSAPP_LINK, "_blank")}
+              onClick={() => {
+                trackEvent('click', WHATSAPP_LINK);
+                window.open(WHATSAPP_LINK, "_blank");
+              }}
             >
               <MessageCircle className="mr-2 h-5 w-5" />
               Falar com um advogado agora
@@ -681,7 +697,10 @@ export default function Home() {
           <Button
             size="lg"
             className="bg-primary text-background hover:bg-primary/90 font-bold text-lg h-16 px-10 rounded-full shadow-[0_8px_30px_rgba(245,179,1,0.3)] hover:scale-105 transition-all duration-300"
-            onClick={() => window.open(WHATSAPP_LINK, "_blank")}
+            onClick={() => {
+              trackEvent('click', WHATSAPP_LINK);
+              window.open(WHATSAPP_LINK, "_blank");
+            }}
           >
             Entrar em contato agora
             <ChevronRight className="ml-2 h-5 w-5" />
