@@ -14,7 +14,10 @@ function Router() {
   const [location] = useLocation();
 
   useEffect(() => {
-    trackEvent('pageview', location);
+    // Não rastrear acessos administrativos ao dashboard
+    if (location !== "/dashboard") {
+      trackEvent('pageview', location);
+    }
   }, [location]);
 
   return (

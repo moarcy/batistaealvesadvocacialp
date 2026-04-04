@@ -151,28 +151,28 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-[#080C14] text-white p-6">
+    <div className="min-h-screen bg-[#080C14] text-white p-4 md:p-6">
       <div className="max-w-7xl mx-auto space-y-8">
-        <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
           <h1 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-[#D49A00]">
             Analytics Overview
           </h1>
-          <div className="flex items-center gap-4">
-            <div className="flex gap-2">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 w-full md:w-auto">
+            <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto">
               <Input 
                 type="date"
-                className="bg-[#0F172A] border-white/10"
+                className="bg-[#0F172A] border-white/10 w-[140px] text-xs h-9"
                 onChange={(e) => fetchMetrics(e.target.value, undefined)}
               />
-              <span className="self-center">até</span>
+              <span className="text-xs text-gray-400">até</span>
               <Input 
                 type="date"
-                className="bg-[#0F172A] border-white/10"
+                className="bg-[#0F172A] border-white/10 w-[140px] text-xs h-9"
                 onChange={(e) => fetchMetrics(undefined, e.target.value)}
               />
             </div>
-            <Button variant="outline" onClick={handleLogout} className="border-white/10 hover:bg-white/5">
-              <LogOut className="h-4 w-4 mr-2" /> Sair
+            <Button variant="outline" onClick={handleLogout} className="border-white/10 hover:bg-white/5 h-9 w-full sm:w-auto">
+              <LogOut className="h-4 w-4 mr-2" /> <span className="sm:inline">Sair</span>
             </Button>
           </div>
         </div>
@@ -225,7 +225,7 @@ export default function Dashboard() {
               </Card>
             </div>
 
-            <Card className="bg-[#0F172A] border-white/10 h-[400px] flex flex-col p-6">
+            <Card className="bg-[#0F172A] border-white/10 h-[300px] md:h-[400px] flex flex-col p-4 md:p-6">
               <h3 className="text-lg font-medium text-white mb-6">Tráfego e Conversões</h3>
               <div className="flex-1 w-full min-h-0">
                 <ResponsiveContainer width="100%" height="100%">
