@@ -37,6 +37,7 @@ export default function Dashboard() {
   const [startDate, setStartDate] = useState<string>("");
   const [endDate, setEndDate] = useState<string>("");
   const [filterMode, setFilterMode] = useState<"date" | "datetime">("date");
+  const [isFetching, setIsFetching] = useState(false);
   const { toast } = useToast();
 
   const checkAuth = async () => {
@@ -92,6 +93,7 @@ export default function Dashboard() {
   };
 
   const fetchMetrics = async (start?: string, end?: string) => {
+    setIsFetching(true);
     try {
       let url = "/api/app-metrics";
       const params = new URLSearchParams();
@@ -113,6 +115,8 @@ export default function Dashboard() {
         description: "Falha ao carregar métricas.",
         variant: "destructive",
       });
+    } finally {
+      setIsFetching(false);
     }
   };
 
@@ -121,19 +125,33 @@ export default function Dashboard() {
       fetchMetrics();
       return;
     }
-    // Converte 'YYYY-MM-DD' para ISO quando no modo só-data
     const toISO = (val: string, isEnd: boolean) => {
       if (!val) return undefined;
+      // Para 'date' (YYYY-MM-DD), criamos um objeto Date local e pegamos o ISO
+      // Isso garante que o dia selecionado no calendário seja o dia real no fuso do usuário
       if (filterMode === "date" && val.length === 10) {
-        // Para o fim do dia, usamos 23:59:59 local ou UTC conforme a necessidade do servidor.
-        // O servidor geralmente espera ISO. New Date(val) em 'YYYY-MM-DD' assume UTC ou Local dependendo do browser.
-        // Vamos ser explicitos para evitar confusão de fuso.
-        return isEnd ? `${val}T23:59:59.999Z` : `${val}T00:00:00.000Z`;
+        const [year, month, day] = val.split('-').map(Number);
+        const date = new Date(year, month - 1, day);
+        if (isEnd) {
+          date.setHours(23, 59, 59, 999);
+        } else {
+          date.setHours(0, 0, 0, 0);
+        }
+        return date.toISOString();
       }
-      // datetime-local ("YYYY-MM-DDTHH:mm")
+      // Para 'datetime-local', o valor já vem como 'YYYY-MM-DDTHH:mm'
+      // New Date() converte isso usando o fuso local do browser
       return new Date(val).toISOString();
     };
-    fetchMetrics(toISO(startDate, false), toISO(endDate, true));
+    
+    const startISO = toISO(startDate, false);
+    const endISO = toISO(endDate, true);
+    
+    fetchMetrics(startISO, endISO);
+    toast({
+      title: "Filtro aplicado",
+      description: `Período: ${startDate || 'Início'} até ${endDate || 'Agora'}`,
+    });
   };
 
   const clearFilter = () => {
@@ -233,10 +251,11 @@ export default function Dashboard() {
 
             <Button
               size="sm"
-              className="bg-primary text-[#080C14] hover:bg-primary/90 font-bold h-9 px-4 shrink-0"
+              disabled={isFetching}
+              className="bg-primary text-[#080C14] hover:bg-primary/90 font-bold h-9 px-4 shrink-0 min-w-[80px]"
               onClick={applyFilter}
             >
-              Aplicar
+              {isFetching ? "..." : "Aplicar"}
             </Button>
 
             {(startDate || endDate) && (
