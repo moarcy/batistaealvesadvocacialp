@@ -51,13 +51,26 @@ export class DatabaseStorage implements IStorage {
     let filteredEvents = allEvents;
     if (startDate || endDate) {
       filteredEvents = allEvents.filter(e => {
-        // Normalize Postgres timestamp string (e.g. '2026-05-04 21:30:00') to ISO 8601
-        const rawDate = e.createdAt.includes('T') ? e.createdAt : e.createdAt.replace(' ', 'T');
-        const normalized = rawDate.endsWith('Z') || rawDate.includes('+') ? rawDate : rawDate + 'Z';
-        const date = new Date(normalized);
-        if (startDate && date < startDate) return false;
-        if (endDate && date > endDate) return false;
-        return true;
+        try {
+          // Normaliza o timestamp do Postgres para ISO
+          // Exemplos: '2024-05-04 21:00:00' -> '2024-05-04T21:00:00Z'
+          let raw = e.createdAt;
+          if (!raw.includes('T')) raw = raw.replace(' ', 'T');
+          if (!raw.endsWith('Z') && !raw.includes('+') && !raw.includes('-')) raw += 'Z';
+          
+          const date = new Date(raw);
+          if (isNaN(date.getTime())) {
+            console.warn(`Data inválida detectada no evento ${e.id}: ${e.createdAt}`);
+            return false;
+          }
+
+          if (startDate && date.getTime() < startDate.getTime()) return false;
+          if (endDate && date.getTime() > endDate.getTime()) return false;
+          return true;
+        } catch (err) {
+          console.error("Erro ao processar data do evento:", err);
+          return false;
+        }
       });
     }
 

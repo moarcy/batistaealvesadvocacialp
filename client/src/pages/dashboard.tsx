@@ -121,37 +121,50 @@ export default function Dashboard() {
   };
 
   const applyFilter = () => {
-    if (!startDate && !endDate) {
-      fetchMetrics();
-      return;
-    }
-    const toISO = (val: string, isEnd: boolean) => {
-      if (!val) return undefined;
-      // Para 'date' (YYYY-MM-DD), criamos um objeto Date local e pegamos o ISO
-      // Isso garante que o dia selecionado no calendário seja o dia real no fuso do usuário
-      if (filterMode === "date" && val.length === 10) {
-        const [year, month, day] = val.split('-').map(Number);
-        const date = new Date(year, month - 1, day);
-        if (isEnd) {
-          date.setHours(23, 59, 59, 999);
-        } else {
-          date.setHours(0, 0, 0, 0);
-        }
-        return date.toISOString();
+    try {
+      if (!startDate && !endDate) {
+        fetchMetrics();
+        return;
       }
-      // Para 'datetime-local', o valor já vem como 'YYYY-MM-DDTHH:mm'
-      // New Date() converte isso usando o fuso local do browser
-      return new Date(val).toISOString();
-    };
-    
-    const startISO = toISO(startDate, false);
-    const endISO = toISO(endDate, true);
-    
-    fetchMetrics(startISO, endISO);
-    toast({
-      title: "Filtro aplicado",
-      description: `Período: ${startDate || 'Início'} até ${endDate || 'Agora'}`,
-    });
+      
+      const toISO = (val: string, isEnd: boolean) => {
+        if (!val) return undefined;
+        
+        if (filterMode === "date") {
+          // Garante que temos uma data completa YYYY-MM-DD
+          if (val.length < 10) return undefined;
+          const [year, month, day] = val.split('-').map(Number);
+          const date = new Date(year, month - 1, day);
+          if (isNaN(date.getTime())) return undefined;
+          
+          if (isEnd) date.setHours(23, 59, 59, 999);
+          else date.setHours(0, 0, 0, 0);
+          
+          return date.toISOString();
+        } else {
+          // datetime-local: YYYY-MM-DDTHH:mm
+          const date = new Date(val);
+          if (isNaN(date.getTime())) return undefined;
+          return date.toISOString();
+        }
+      };
+      
+      const startISO = toISO(startDate, false);
+      const endISO = toISO(endDate, true);
+      
+      fetchMetrics(startISO, endISO);
+      toast({
+        title: "Filtro aplicado",
+        description: "Atualizando métricas para o período selecionado...",
+      });
+    } catch (err) {
+      console.error(err);
+      toast({
+        title: "Erro no filtro",
+        description: "Verifique o formato das datas selecionadas.",
+        variant: "destructive",
+      });
+    }
   };
 
   const clearFilter = () => {
