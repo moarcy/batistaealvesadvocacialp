@@ -52,24 +52,21 @@ export class DatabaseStorage implements IStorage {
     if (startDate || endDate) {
       filteredEvents = allEvents.filter(e => {
         try {
-          // Normaliza o timestamp do Postgres para ISO
-          // Exemplos: '2024-05-04 21:00:00' -> '2024-05-04T21:00:00Z'
+          // Normalização super-flexível
           let raw = e.createdAt;
-          if (!raw.includes('T')) raw = raw.replace(' ', 'T');
-          if (!raw.endsWith('Z') && !raw.includes('+') && !raw.includes('-')) raw += 'Z';
+          if (!raw) return true;
           
-          const date = new Date(raw);
-          if (isNaN(date.getTime())) {
-            console.warn(`Data inválida detectada no evento ${e.id}: ${e.createdAt}`);
-            return false;
-          }
+          // Se for uma data ISO pura, new Date() resolve
+          const date = new Date(raw.replace(' ', 'T'));
+          
+          if (isNaN(date.getTime())) return true; // Se não conseguir ler a data, não filtra (mostra o dado)
 
-          if (startDate && date.getTime() < startDate.getTime()) return false;
-          if (endDate && date.getTime() > endDate.getTime()) return false;
+          const time = date.getTime();
+          if (startDate && time < startDate.getTime()) return false;
+          if (endDate && time > endDate.getTime()) return false;
           return true;
         } catch (err) {
-          console.error("Erro ao processar data do evento:", err);
-          return false;
+          return true; // Na dúvida, não filtra
         }
       });
     }
