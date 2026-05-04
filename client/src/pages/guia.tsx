@@ -24,19 +24,19 @@ export default function GuiaDireitos() {
     >
       <div className="flex flex-col">
         {/* Hero Section Premium */}
-        <header className="relative pt-12 md:pt-24 pb-16 md:pb-24 overflow-hidden border-b border-white/5">
+        <header className="relative pt-6 md:pt-24 pb-10 md:pb-24 overflow-hidden border-b border-white/5">
           {/* Background Glows específicos do Hero */}
           <div className="absolute top-1/2 right-0 -translate-y-1/2 w-[500px] h-[500px] bg-primary/10 blur-[120px] rounded-full pointer-events-none" />
 
-          <div className="container max-w-6xl mx-auto px-6">
-            <div className="grid lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+          <div className="container max-w-6xl mx-auto px-4 sm:px-6">
+            <div className="flex flex-col lg:grid lg:grid-cols-12 gap-6 lg:gap-8 lg:items-center">
 
-              {/* Text Content */}
+              {/* Top Text Content (Badge & Title) */}
               <motion.div
                 initial={{ opacity: 0, x: -30 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.6 }}
-                className="lg:col-span-7 flex flex-col gap-6 md:gap-8 text-left relative z-10"
+                className="lg:col-span-7 lg:row-start-1 flex flex-col gap-6 md:gap-8 text-left relative z-10"
               >
                 <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-md w-fit">
                   <span className="relative flex h-2 w-2">
@@ -46,18 +46,10 @@ export default function GuiaDireitos() {
                   <span className="text-primary font-medium tracking-wide text-xs uppercase">Guia Completo 2026</span>
                 </div>
 
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-[1.1] tracking-tight drop-shadow-lg">
+                <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold text-white leading-[1.1] tracking-tight drop-shadow-lg">
                   Direitos Trabalhistas em Salvador:<br />
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-[#D49A00]">O Que Você Pode Cobrar</span>
                 </h1>
-
-                <p className="text-lg md:text-xl text-white/80 leading-relaxed font-light max-w-2xl">
-                  Se você trabalha ou trabalhou em Salvador e tem dúvidas sobre seus direitos, este guia foi feito para te dar clareza rápida e objetiva. Descubra o que a lei garante a você.
-                </p>
-
-                <div className="pt-2">
-                  <WhatsAppCTA message={WHATSAPP_MESSAGES.geral} className="h-14 px-8 text-lg w-full sm:w-auto" />
-                </div>
               </motion.div>
 
               {/* Premium Image Showcase */}
@@ -65,28 +57,24 @@ export default function GuiaDireitos() {
                 initial={{ opacity: 0, scale: 0.9, rotateY: 15 }}
                 animate={{ opacity: 1, scale: 1, rotateY: 0 }}
                 transition={{ duration: 0.8, delay: 0.2 }}
-                className="lg:col-span-5 relative z-10 w-full max-w-md mx-auto lg:max-w-full perspective-1000"
+                className="lg:col-span-5 lg:col-start-8 lg:row-start-1 lg:row-span-2 relative z-10 w-full max-w-md mx-auto lg:max-w-full perspective-1000"
               >
-                <motion.div
-                  animate={{ y: [0, -10, 0] }}
-                  transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-                  className="relative"
-                >
+                <div className="relative">
                   {/* Decorators */}
                   <div className="absolute inset-0 bg-gradient-to-tr from-primary/30 to-transparent rounded-[2rem] transform rotate-3 scale-105 blur-md" />
                   <div className="absolute inset-0 bg-[#0F172A] rounded-[2rem] transform -rotate-1 border border-white/10" />
 
                   {/* Image Container */}
-                  <div className="relative rounded-[2rem] overflow-hidden border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
+                  <div className="relative rounded-[1.5rem] lg:rounded-[2rem] overflow-hidden border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
                     <div className="absolute inset-0 bg-gradient-to-t from-[#080C14] via-transparent to-transparent opacity-80 z-10" />
                     <img
                       src="/carteira-de-trabalho.png"
                       alt="Carteira de Trabalho Brasileira"
-                      className="w-full h-auto aspect-[4/5] object-cover"
+                      className="w-full h-auto aspect-[16/10] sm:aspect-video lg:aspect-[4/5] object-cover"
                     />
 
                     {/* Glassmorphism Badge */}
-                    <div className="absolute bottom-6 left-6 right-6 z-20 bg-[#080C14]/60 backdrop-blur-md p-4 rounded-xl border border-white/10">
+                    <div className="absolute bottom-4 left-4 right-4 lg:bottom-6 lg:left-6 lg:right-6 z-20 bg-[#080C14]/60 backdrop-blur-md p-3 lg:p-4 rounded-xl border border-white/10">
                       <div className="flex items-center gap-3">
                         <div className="bg-primary/20 p-2.5 rounded-full shrink-0">
                           <CheckCircle2 className="h-5 w-5 text-primary" />
@@ -98,7 +86,23 @@ export default function GuiaDireitos() {
                       </div>
                     </div>
                   </div>
-                </motion.div>
+                </div>
+              </motion.div>
+
+              {/* Bottom Text Content (P & CTA) */}
+              <motion.div
+                initial={{ opacity: 0, x: -30 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6, delay: 0.1 }}
+                className="lg:col-span-7 lg:row-start-2 flex flex-col gap-6 md:gap-8 text-left relative z-10"
+              >
+                <p className="text-base md:text-xl text-white/80 leading-relaxed font-light max-w-2xl">
+                  Se você trabalha ou trabalhou em Salvador e tem dúvidas sobre seus direitos, este guia foi feito para te dar clareza rápida e objetiva. Descubra o que a lei garante a você.
+                </p>
+
+                <div className="pt-2">
+                  <WhatsAppCTA message={WHATSAPP_MESSAGES.geral} className="h-12 md:h-14 px-6 md:px-8 text-base md:text-lg w-full sm:w-auto" />
+                </div>
               </motion.div>
 
             </div>
