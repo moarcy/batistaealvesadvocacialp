@@ -3,6 +3,7 @@ import ArticleLayout from "@/components/ArticleLayout";
 import ArticleSection from "@/components/ArticleSection";
 import WhatsAppCTA from "@/components/WhatsAppCTA";
 import { artigoSemCarteira } from "@/lib/articles";
+import { trackEvent, startTimeTracking, startScrollTracking, getReferrer } from "@/lib/analytics";
 
 export default function ArtigoSemCarteira() {
   const article = artigoSemCarteira;
@@ -14,6 +15,10 @@ export default function ArtigoSemCarteira() {
       metaDesc.setAttribute("content", article.metaDescription);
     }
     window.scrollTo(0, 0);
+    trackEvent('pageview', '/guia/sem-carteira', { referrer: getReferrer() });
+    const cleanupTime = startTimeTracking('/guia/sem-carteira');
+    const cleanupScroll = startScrollTracking('/guia/sem-carteira');
+    return () => { cleanupTime(); cleanupScroll(); };
   }, [article]);
 
   return (

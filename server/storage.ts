@@ -14,6 +14,11 @@ export interface IStorage {
     totalClicks: number;
     ctr: string;
     eventsByDate: any[];
+    pageViewsByPath: Record<string, number>;
+    clicksByPath: Record<string, number>;
+    avgTimeOnPage: number;
+    referrers: Record<string, number>;
+    scrollDepthByPath: Record<string, { d50: number; d100: number }>;
   }>;
 }
 
@@ -46,7 +51,10 @@ export class DatabaseStorage implements IStorage {
     let filteredEvents = allEvents;
     if (startDate || endDate) {
       filteredEvents = allEvents.filter(e => {
-        const date = new Date(e.createdAt);
+        // Normalize Postgres timestamp string (e.g. '2026-05-04 21:30:00') to ISO 8601
+        const rawDate = e.createdAt.includes('T') ? e.createdAt : e.createdAt.replace(' ', 'T');
+        const normalized = rawDate.endsWith('Z') || rawDate.includes('+') ? rawDate : rawDate + 'Z';
+        const date = new Date(normalized);
         if (startDate && date < startDate) return false;
         if (endDate && date > endDate) return false;
         return true;
@@ -82,12 +90,48 @@ export class DatabaseStorage implements IStorage {
       clicks: data.clicks
     })).sort((a, b) => a.date.localeCompare(b.date));
 
+    const pageViewsByPath: Record<string, number> = {};
+    const clicksByPath: Record<string, number> = {};
+    const referrers: Record<string, number> = {};
+    const scrollDepthByPath: Record<string, { d50: number; d100: number }> = {};
+    let totalTimeSeconds = 0;
+    let timeOnPageCount = 0;
+
+    for (const e of filteredEvents) {
+      const meta = (e.metadata as Record<string, any> | null) ?? {};
+      if (e.eventType === 'pageview') {
+        pageViewsByPath[e.path] = (pageViewsByPath[e.path] || 0) + 1;
+        if (meta.referrer) {
+          referrers[meta.referrer] = (referrers[meta.referrer] || 0) + 1;
+        }
+      }
+      if (e.eventType === 'click') {
+        clicksByPath[e.path] = (clicksByPath[e.path] || 0) + 1;
+      }
+      if (e.eventType === 'time_on_page' && typeof meta.seconds === 'number') {
+        totalTimeSeconds += meta.seconds;
+        timeOnPageCount++;
+      }
+      if (e.eventType === 'scroll_depth') {
+        if (!scrollDepthByPath[e.path]) scrollDepthByPath[e.path] = { d50: 0, d100: 0 };
+        if (meta.depth === 50) scrollDepthByPath[e.path].d50++;
+        if (meta.depth === 100) scrollDepthByPath[e.path].d100++;
+      }
+    }
+
+    const avgTimeOnPage = timeOnPageCount > 0 ? Math.round(totalTimeSeconds / timeOnPageCount) : 0;
+
     return {
       uniqueVisits,
       totalVisits,
       totalClicks,
       ctr,
-      eventsByDate
+      eventsByDate,
+      pageViewsByPath,
+      clicksByPath,
+      avgTimeOnPage,
+      referrers,
+      scrollDepthByPath,
     };
   }
 }
@@ -134,7 +178,9 @@ export class MemStorage implements IStorage {
     let filteredEvents = this.analyticsEvents;
     if (startDate || endDate) {
       filteredEvents = this.analyticsEvents.filter(e => {
-        const date = new Date(e.createdAt);
+        const rawDate = e.createdAt.includes('T') ? e.createdAt : e.createdAt.replace(' ', 'T');
+        const normalized = rawDate.endsWith('Z') || rawDate.includes('+') ? rawDate : rawDate + 'Z';
+        const date = new Date(normalized);
         if (startDate && date < startDate) return false;
         if (endDate && date > endDate) return false;
         return true;
@@ -168,12 +214,48 @@ export class MemStorage implements IStorage {
       clicks: data.clicks
     })).sort((a, b) => a.date.localeCompare(b.date));
 
+    const pageViewsByPath: Record<string, number> = {};
+    const clicksByPath: Record<string, number> = {};
+    const referrers: Record<string, number> = {};
+    const scrollDepthByPath: Record<string, { d50: number; d100: number }> = {};
+    let totalTimeSeconds = 0;
+    let timeOnPageCount = 0;
+
+    for (const e of filteredEvents) {
+      const meta = (e.metadata as Record<string, any> | null) ?? {};
+      if (e.eventType === 'pageview') {
+        pageViewsByPath[e.path] = (pageViewsByPath[e.path] || 0) + 1;
+        if (meta.referrer) {
+          referrers[meta.referrer] = (referrers[meta.referrer] || 0) + 1;
+        }
+      }
+      if (e.eventType === 'click') {
+        clicksByPath[e.path] = (clicksByPath[e.path] || 0) + 1;
+      }
+      if (e.eventType === 'time_on_page' && typeof meta.seconds === 'number') {
+        totalTimeSeconds += meta.seconds;
+        timeOnPageCount++;
+      }
+      if (e.eventType === 'scroll_depth') {
+        if (!scrollDepthByPath[e.path]) scrollDepthByPath[e.path] = { d50: 0, d100: 0 };
+        if (meta.depth === 50) scrollDepthByPath[e.path].d50++;
+        if (meta.depth === 100) scrollDepthByPath[e.path].d100++;
+      }
+    }
+
+    const avgTimeOnPage = timeOnPageCount > 0 ? Math.round(totalTimeSeconds / timeOnPageCount) : 0;
+
     return {
       uniqueVisits,
       totalVisits,
       totalClicks,
       ctr,
-      eventsByDate
+      eventsByDate,
+      pageViewsByPath,
+      clicksByPath,
+      avgTimeOnPage,
+      referrers,
+      scrollDepthByPath,
     };
   }
 }

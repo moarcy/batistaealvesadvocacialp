@@ -1,5 +1,5 @@
 import { sql } from "drizzle-orm";
-import { pgTable, text, varchar } from "drizzle-orm/pg-core";
+import { pgTable, text, varchar, jsonb } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
@@ -14,6 +14,7 @@ export const analyticsEvents = pgTable("analytics_events", {
   eventType: text("event_type").notNull(), // 'pageview' or 'click'
   path: text("path").notNull(),
   sessionId: text("session_id").notNull(),
+  metadata: jsonb("metadata").$type<Record<string, any>>(),
   createdAt: text("created_at").default(sql`CURRENT_TIMESTAMP`).notNull(),
 });
 
@@ -26,6 +27,7 @@ export const insertAnalyticsEventSchema = createInsertSchema(analyticsEvents).pi
   eventType: true,
   path: true,
   sessionId: true,
+  metadata: true,
 });
 
 export type InsertUser = z.infer<typeof insertUserSchema>;

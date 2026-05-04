@@ -3,6 +3,7 @@ import ArticleLayout from "@/components/ArticleLayout";
 import ArticleSection from "@/components/ArticleSection";
 import WhatsAppCTA from "@/components/WhatsAppCTA";
 import { artigoPericulosidade } from "@/lib/articles";
+import { trackEvent, startTimeTracking, startScrollTracking, getReferrer } from "@/lib/analytics";
 
 export default function ArtigoPericulosidade() {
   const article = artigoPericulosidade;
@@ -14,6 +15,10 @@ export default function ArtigoPericulosidade() {
       metaDesc.setAttribute("content", article.metaDescription);
     }
     window.scrollTo(0, 0);
+    trackEvent('pageview', '/guia/periculosidade', { referrer: getReferrer() });
+    const cleanupTime = startTimeTracking('/guia/periculosidade');
+    const cleanupScroll = startScrollTracking('/guia/periculosidade');
+    return () => { cleanupTime(); cleanupScroll(); };
   }, [article]);
 
   return (

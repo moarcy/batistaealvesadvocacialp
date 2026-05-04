@@ -1,5 +1,5 @@
 import { motion, Variants } from "framer-motion";
-import { trackEvent } from "@/lib/analytics";
+import { trackEvent, startTimeTracking, getReferrer } from "@/lib/analytics";
 import {
   Scale,
   Users,
@@ -16,7 +16,7 @@ import {
   TrendingUp,
   Award
 } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
@@ -25,6 +25,14 @@ const WHATSAPP_LINK = "https://wa.me/5574999443002";
 
 export default function Home() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  useEffect(() => {
+    // Rastreia referrer na chegada
+    trackEvent('pageview', '/', { referrer: getReferrer() });
+    // Rastreia tempo de permanência
+    const cleanup = startTimeTracking('/');
+    return cleanup;
+  }, []);
 
   const fadeInUp: Variants = {
     hidden: { opacity: 0, y: 30 },
@@ -77,7 +85,7 @@ export default function Home() {
             <Button
               className="bg-primary text-background hover:bg-primary/90 font-semibold rounded-full px-6 shadow-[0_4px_14px_rgba(245,179,1,0.2)]"
               onClick={() => {
-                trackEvent('click', WHATSAPP_LINK);
+                trackEvent('click', 'whatsapp_header_desktop');
                 window.open(WHATSAPP_LINK, "_blank");
               }}
             >
@@ -105,7 +113,7 @@ export default function Home() {
             <Button
               className="w-full bg-primary text-background font-bold mt-2"
               onClick={() => {
-                trackEvent('click', WHATSAPP_LINK);
+                trackEvent('click', 'whatsapp_header_mobile');
                 window.open(WHATSAPP_LINK, "_blank");
               }}
             >
@@ -161,7 +169,7 @@ export default function Home() {
                   size="lg"
                   className="relative overflow-hidden bg-primary text-[#080C14] hover:bg-[#D49A00] font-bold text-lg h-16 px-10 rounded-full shadow-[0_0_40px_rgba(245,179,1,0.3)] hover:shadow-[0_0_60px_rgba(245,179,1,0.5)] hover:-translate-y-1 transition-all duration-300 group"
                   onClick={() => {
-                    trackEvent('click', WHATSAPP_LINK);
+                    trackEvent('click', 'whatsapp_hero');
                     window.open(WHATSAPP_LINK, "_blank");
                   }}
                 >
@@ -418,7 +426,7 @@ export default function Home() {
                   <Button
                     className="w-full bg-primary text-[#080C14] hover:bg-[#D49A00] font-bold h-12 rounded-xl text-base shadow-lg shadow-primary/10 hover:shadow-primary/30 transition-all duration-300"
                     onClick={() => {
-                      trackEvent('click', WHATSAPP_LINK);
+                      trackEvent('click', 'whatsapp_direitos');
                       window.open(WHATSAPP_LINK, "_blank");
                     }}
                   >
@@ -646,7 +654,7 @@ export default function Home() {
               size="lg"
               className="bg-[#080C14] text-white hover:bg-black/80 font-bold text-lg h-14 px-10 rounded-full shadow-2xl hover:scale-105 transition-all duration-300"
               onClick={() => {
-                trackEvent('click', WHATSAPP_LINK);
+                trackEvent('click', 'whatsapp_atendimento_rapido');
                 window.open(WHATSAPP_LINK, "_blank");
               }}
             >
@@ -700,7 +708,7 @@ export default function Home() {
             size="lg"
             className="bg-primary text-background hover:bg-primary/90 font-bold text-lg h-16 px-10 rounded-full shadow-[0_8px_30px_rgba(245,179,1,0.3)] hover:scale-105 transition-all duration-300"
             onClick={() => {
-              trackEvent('click', WHATSAPP_LINK);
+              trackEvent('click', 'whatsapp_footer_cta');
               window.open(WHATSAPP_LINK, "_blank");
             }}
           >

@@ -3,6 +3,7 @@ import ArticleLayout from "@/components/ArticleLayout";
 import ArticleSection from "@/components/ArticleSection";
 import WhatsAppCTA from "@/components/WhatsAppCTA";
 import { artigoHorasExtras } from "@/lib/articles";
+import { trackEvent, startTimeTracking, startScrollTracking, getReferrer } from "@/lib/analytics";
 
 export default function ArtigoHorasExtras() {
   const article = artigoHorasExtras;
@@ -14,6 +15,10 @@ export default function ArtigoHorasExtras() {
       metaDesc.setAttribute("content", article.metaDescription);
     }
     window.scrollTo(0, 0);
+    trackEvent('pageview', '/guia/horas-extras', { referrer: getReferrer() });
+    const cleanupTime = startTimeTracking('/guia/horas-extras');
+    const cleanupScroll = startScrollTracking('/guia/horas-extras');
+    return () => { cleanupTime(); cleanupScroll(); };
   }, [article]);
 
   return (

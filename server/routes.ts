@@ -65,7 +65,7 @@ export async function registerRoutes(
   // Track event endpoint (public)
   app.post("/api/app-events", async (req, res) => {
     try {
-      const { eventType, path, sessionId } = req.body;
+      const { eventType, path, sessionId, metadata } = req.body;
       
       if (!eventType || !path || !sessionId) {
         return res.status(400).json({ error: "Missing required fields" });
@@ -75,6 +75,7 @@ export async function registerRoutes(
         eventType,
         path,
         sessionId,
+        metadata: metadata ?? null,
       });
 
       res.status(200).json({ success: true });
@@ -96,10 +97,15 @@ export async function registerRoutes(
       let start: Date | undefined = undefined;
       let end: Date | undefined = undefined;
 
-      if (typeof startDate === "string") start = new Date(startDate);
+      if (typeof startDate === "string") {
+        start = new Date(startDate);
+      }
       if (typeof endDate === "string") {
         end = new Date(endDate);
-        end.setHours(23, 59, 59, 999);
+        // If it's just a date without time (length 10), set to end of day
+        if (endDate.length <= 10) {
+          end.setHours(23, 59, 59, 999);
+        }
       }
 
       const metrics = await storage.getMetrics(start, end);

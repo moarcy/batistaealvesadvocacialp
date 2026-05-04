@@ -5,6 +5,7 @@ import ArticleLayout from "@/components/ArticleLayout";
 import ArticleCard from "@/components/ArticleCard";
 import WhatsAppCTA from "@/components/WhatsAppCTA";
 import { PILLAR_CARDS, WHATSAPP_MESSAGES } from "@/lib/articles";
+import { trackEvent, startTimeTracking, startScrollTracking, getReferrer } from "@/lib/analytics";
 
 export default function GuiaDireitos() {
 
@@ -15,6 +16,11 @@ export default function GuiaDireitos() {
       metaDesc.setAttribute("content", "Guia completo sobre direitos trabalhistas em Salvador. Saiba o que você pode cobrar em casos de horas extras, insalubridade, trabalho sem carteira e mais.");
     }
     window.scrollTo(0, 0);
+    // Analytics: rastreia referrer, tempo de permanência e scroll
+    trackEvent('pageview', '/guia', { referrer: getReferrer() });
+    const cleanupTime = startTimeTracking('/guia');
+    const cleanupScroll = startScrollTracking('/guia');
+    return () => { cleanupTime(); cleanupScroll(); };
   }, []);
 
   return (

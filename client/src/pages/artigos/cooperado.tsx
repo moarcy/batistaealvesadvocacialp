@@ -3,6 +3,7 @@ import ArticleLayout from "@/components/ArticleLayout";
 import ArticleSection from "@/components/ArticleSection";
 import WhatsAppCTA from "@/components/WhatsAppCTA";
 import { artigoCooperado } from "@/lib/articles";
+import { trackEvent, startTimeTracking, startScrollTracking, getReferrer } from "@/lib/analytics";
 
 export default function ArtigoCooperado() {
   const article = artigoCooperado;
@@ -14,6 +15,10 @@ export default function ArtigoCooperado() {
       metaDesc.setAttribute("content", article.metaDescription);
     }
     window.scrollTo(0, 0);
+    trackEvent('pageview', '/guia/cooperado', { referrer: getReferrer() });
+    const cleanupTime = startTimeTracking('/guia/cooperado');
+    const cleanupScroll = startScrollTracking('/guia/cooperado');
+    return () => { cleanupTime(); cleanupScroll(); };
   }, [article]);
 
   return (

@@ -3,6 +3,8 @@ import { Button } from "@/components/ui/button";
 import { whatsappLink } from "@/lib/articles";
 import { trackEvent } from "@/lib/analytics";
 
+import { useLocation } from "wouter";
+
 interface WhatsAppCTAProps {
   message: string;
   variant?: "inline" | "banner";
@@ -11,9 +13,10 @@ interface WhatsAppCTAProps {
 
 export default function WhatsAppCTA({ message, variant = "inline", className = "" }: WhatsAppCTAProps) {
   const link = whatsappLink(message);
+  const [location] = useLocation();
 
   const handleCTA = () => {
-    trackEvent("click", link);
+    trackEvent("click", `whatsapp_cta${location.replace(/\//g, '_')}`);
     window.open(link, "_blank");
   };
 
