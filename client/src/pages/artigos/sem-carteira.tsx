@@ -42,11 +42,6 @@ export default function ArtigoSemCarteira() {
           ))}
         </div>
 
-        {/* Banner CTA */}
-        <div className="pt-8">
-          <WhatsAppCTA message={article.ctaMessage} variant="banner" />
-        </div>
-
       </article>
     </ArticleLayout>
   );

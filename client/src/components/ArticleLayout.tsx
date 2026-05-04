@@ -22,7 +22,7 @@ export default function ArticleLayout({ children, title, ctaMessage }: ArticleLa
   };
 
   return (
-    <div className="min-h-screen bg-[#06090E] text-foreground overflow-x-hidden font-sans selection:bg-primary/20 selection:text-primary relative">
+    <div className="min-h-screen bg-[#080C14] text-foreground overflow-x-hidden font-sans selection:bg-primary/20 selection:text-primary relative">
       
       {/* Premium Background Effects */}
       <div className="fixed inset-0 z-0 pointer-events-none">
@@ -31,19 +31,20 @@ export default function ArticleLayout({ children, title, ctaMessage }: ArticleLa
       </div>
 
       {/* Navbar */}
-      <nav className="fixed top-0 w-full z-50 bg-[#06090E]/80 backdrop-blur-xl border-b border-white/5 shadow-sm">
+      <nav className="fixed top-0 w-full z-50 bg-[#080C14]/80 backdrop-blur-xl border-b border-white/5 shadow-sm">
         <div className="container mx-auto px-6 h-20 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
             <Scale className="h-7 w-7 text-primary" />
             <span className="text-base font-bold text-white hidden sm:block">Batista &amp; Alves Advocacia</span>
           </Link>
           <div className="flex items-center gap-4">
-            <Link href="/guia" className="hidden md:flex items-center gap-1 text-sm text-gray-400 hover:text-primary transition-colors group">
+            <Link href="/guia" className="flex items-center gap-1 text-sm text-gray-400 hover:text-primary transition-colors group">
               <ArrowLeft className="h-4 w-4 group-hover:-translate-x-1 transition-transform" />
-              Guia de Direitos
+              <span className="hidden sm:inline">Guia de Direitos</span>
+              <span className="sm:hidden">Voltar ao Guia</span>
             </Link>
             <Button
-              className="bg-primary text-background hover:bg-primary/90 font-semibold rounded-full px-5 text-sm shadow-[0_4px_14px_rgba(245,179,1,0.2)]"
+              className="hidden md:flex bg-primary text-background hover:bg-primary/90 font-semibold rounded-full px-5 text-sm shadow-[0_4px_14px_rgba(245,179,1,0.2)]"
               onClick={handleCTA}
             >
               <MessageCircle className="h-4 w-4 mr-2" />

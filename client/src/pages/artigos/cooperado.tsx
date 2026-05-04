@@ -39,10 +39,6 @@ export default function ArtigoCooperado() {
           ))}
         </div>
 
-        <div className="pt-8">
-          <WhatsAppCTA message={article.ctaMessage} variant="banner" />
-        </div>
-
       </article>
     </ArticleLayout>
   );
