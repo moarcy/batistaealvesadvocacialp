@@ -4,6 +4,9 @@ import session from "express-session";
 import connectPgSimple from "connect-pg-simple";
 import { storage } from "./storage.js";
 import { pool } from "./db.js";
+import createMemoryStore from "memorystore";
+
+const MemoryStore = createMemoryStore(session);
 
 export async function registerRoutes(
   httpServer: Server,
@@ -17,11 +20,15 @@ export async function registerRoutes(
   // Setup persistent session for authentication (PostgreSQL)
   app.use(
     session({
-      store: new PostgresStore({
-        pool: pool, // Usando o pool importado de ./db.js
-        tableName: "sessions",
-        createTableIfMissing: false, 
-      }),
+      store: process.env.DATABASE_URL 
+        ? new PostgresStore({
+            pool: pool,
+            tableName: "sessions",
+            createTableIfMissing: false, 
+          })
+        : new MemoryStore({
+            checkPeriod: 86400000 // prune expired entries every 24h
+          }),
       cookie: { 
         maxAge: 30 * 24 * 60 * 60 * 1000, 
         secure: process.env.NODE_ENV === "production",

@@ -72,6 +72,7 @@ export default function Home() {
           <div className="hidden md:flex items-center gap-8">
             <a href="#areas" className="text-sm font-medium text-gray-300 hover:text-primary transition-colors">Áreas de Atuação</a>
             <a href="#sobre" className="text-sm font-medium text-gray-300 hover:text-primary transition-colors">Sobre</a>
+            <a href="/guia" className="text-sm font-medium text-gray-300 hover:text-primary transition-colors">Guia de Direitos</a>
             <a href="#contato" className="text-sm font-medium text-gray-300 hover:text-primary transition-colors">Contato</a>
             <Button
               className="bg-primary text-background hover:bg-primary/90 font-semibold rounded-full px-6 shadow-[0_4px_14px_rgba(245,179,1,0.2)]"
@@ -99,6 +100,7 @@ export default function Home() {
           >
             <a href="#areas" className="text-lg font-medium text-gray-300" onClick={() => setIsMenuOpen(false)}>Áreas de Atuação</a>
             <a href="#sobre" className="text-lg font-medium text-gray-300" onClick={() => setIsMenuOpen(false)}>Sobre</a>
+            <a href="/guia" className="text-lg font-medium text-gray-300" onClick={() => setIsMenuOpen(false)}>Guia de Direitos</a>
             <a href="#contato" className="text-lg font-medium text-gray-300" onClick={() => setIsMenuOpen(false)}>Contato</a>
             <Button
               className="w-full bg-primary text-background font-bold mt-2"
@@ -730,6 +732,7 @@ export default function Home() {
               <ul className="space-y-4 text-gray-500">
                 <li><a href="#areas" className="hover:text-primary transition-colors">Áreas de Atuação</a></li>
                 <li><a href="#sobre" className="hover:text-primary transition-colors">Sobre o Escritório</a></li>
+                <li><a href="/guia" className="hover:text-primary transition-colors">Guia de Direitos</a></li>
                 <li><a href="#contato" className="hover:text-primary transition-colors">Entre em Contato</a></li>
               </ul>
             </div>
