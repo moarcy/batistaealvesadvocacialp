@@ -36,6 +36,7 @@ export default function Dashboard() {
   const [metrics, setMetrics] = useState<Metrics | null>(null);
   const [startDate, setStartDate] = useState<string>("");
   const [endDate, setEndDate] = useState<string>("");
+  const [filterMode, setFilterMode] = useState<"date" | "datetime">("date");
   const { toast } = useToast();
 
   const checkAuth = async () => {
@@ -115,6 +116,36 @@ export default function Dashboard() {
     }
   };
 
+  const applyFilter = () => {
+    if (!startDate && !endDate) {
+      fetchMetrics();
+      return;
+    }
+    // Converte 'YYYY-MM-DD' para ISO quando no modo só-data
+    const toISO = (val: string, isEnd: boolean) => {
+      if (!val) return undefined;
+      if (filterMode === "date" && val.length === 10) {
+        // Para o fim do dia, usamos 23:59:59 local ou UTC conforme a necessidade do servidor.
+        // O servidor geralmente espera ISO. New Date(val) em 'YYYY-MM-DD' assume UTC ou Local dependendo do browser.
+        // Vamos ser explicitos para evitar confusão de fuso.
+        return isEnd ? `${val}T23:59:59.999Z` : `${val}T00:00:00.000Z`;
+      }
+      // datetime-local ("YYYY-MM-DDTHH:mm")
+      return new Date(val).toISOString();
+    };
+    fetchMetrics(toISO(startDate, false), toISO(endDate, true));
+  };
+
+  const clearFilter = () => {
+    setStartDate("");
+    setEndDate("");
+    fetchMetrics();
+  };
+
+  const handleFilterKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter") applyFilter();
+  };
+
   if (isLoading) {
     return <div className="min-h-screen flex items-center justify-center bg-background text-white">Carregando...</div>;
   }
@@ -164,30 +195,63 @@ export default function Dashboard() {
           <h1 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-[#D49A00]">
             Analytics Overview
           </h1>
-          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 w-full md:w-auto">
-            <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto">
-              <Input 
-                type="datetime-local"
-                className="bg-[#0F172A] border-white/10 w-[180px] text-xs h-9"
-                value={startDate}
-                onChange={(e) => {
-                  setStartDate(e.target.value);
-                  fetchMetrics(e.target.value, endDate);
-                }}
-              />
-              <span className="text-xs text-gray-400">até</span>
-              <Input 
-                type="datetime-local"
-                className="bg-[#0F172A] border-white/10 w-[180px] text-xs h-9"
-                value={endDate}
-                onChange={(e) => {
-                  setEndDate(e.target.value);
-                  fetchMetrics(startDate, e.target.value);
-                }}
-              />
+          {/* Barra de Filtros */}
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 w-full md:w-auto">
+            {/* Toggle modo data / data+hora */}
+            <div className="flex rounded-lg overflow-hidden border border-white/10 text-xs shrink-0">
+              <button
+                className={`px-3 py-1.5 transition-colors ${
+                  filterMode === "date" ? "bg-primary text-[#080C14] font-bold" : "bg-[#0F172A] text-gray-400 hover:text-white"
+                }`}
+                onClick={() => setFilterMode("date")}
+              >Dia</button>
+              <button
+                className={`px-3 py-1.5 transition-colors ${
+                  filterMode === "datetime" ? "bg-primary text-[#080C14] font-bold" : "bg-[#0F172A] text-gray-400 hover:text-white"
+                }`}
+                onClick={() => setFilterMode("datetime")}
+              >Dia + Hora</button>
             </div>
-            <Button variant="outline" onClick={handleLogout} className="border-white/10 hover:bg-white/5 h-9 w-full sm:w-auto">
-              <LogOut className="h-4 w-4 mr-2" /> <span className="sm:inline">Sair</span>
+
+            <input
+              type={filterMode === "date" ? "date" : "datetime-local"}
+              className="bg-[#0F172A] border border-white/10 rounded-md text-white text-xs h-9 px-3 w-[150px] sm:w-[180px] focus:outline-none focus:border-primary/50"
+              value={startDate}
+              placeholder="De"
+              onChange={(e) => setStartDate(e.target.value)}
+              onKeyDown={handleFilterKeyDown}
+            />
+            <span className="text-xs text-gray-400 hidden sm:inline">até</span>
+            <input
+              type={filterMode === "date" ? "date" : "datetime-local"}
+              className="bg-[#0F172A] border border-white/10 rounded-md text-white text-xs h-9 px-3 w-[150px] sm:w-[180px] focus:outline-none focus:border-primary/50"
+              value={endDate}
+              placeholder="Até"
+              onChange={(e) => setEndDate(e.target.value)}
+              onKeyDown={handleFilterKeyDown}
+            />
+
+            <Button
+              size="sm"
+              className="bg-primary text-[#080C14] hover:bg-primary/90 font-bold h-9 px-4 shrink-0"
+              onClick={applyFilter}
+            >
+              Aplicar
+            </Button>
+
+            {(startDate || endDate) && (
+              <Button
+                size="sm"
+                variant="outline"
+                className="border-white/10 hover:bg-white/5 text-gray-400 h-9 px-3 shrink-0"
+                onClick={clearFilter}
+              >
+                ✕ Limpar
+              </Button>
+            )}
+
+            <Button variant="outline" onClick={handleLogout} className="border-white/10 hover:bg-white/5 h-9 w-full sm:w-auto shrink-0">
+              <LogOut className="h-4 w-4 mr-2" /> <span>Sair</span>
             </Button>
           </div>
         </div>
