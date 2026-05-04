@@ -71,8 +71,8 @@ export default function Home() {
             className="flex items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity"
           >
             <div className="flex items-center gap-2">
-              <Scale className="h-8 w-8 text-primary" />
-              <span className="text-xl font-bold text-white">Batista & Alves Advocacia</span>
+              <Scale className="h-6 w-6 md:h-8 md:w-8 text-primary" />
+              <span className="text-base md:text-xl font-bold text-white">Batista & Alves Advocacia</span>
             </div>
           </a>
 
@@ -153,21 +153,21 @@ export default function Home() {
               </motion.div>
 
               <motion.div variants={fadeInUp}>
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-[1.1] tracking-tight">
+                <h1 className="text-3xl sm:text-4xl lg:text-6xl font-bold text-white leading-[1.15] tracking-tight">
                   Advogado Trabalhista em Salvador – Especialista em <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FCCA3F] via-[#F5B301] to-[#D49A00] animate-shimmer">Direito do Trabalho</span>
                 </h1>
               </motion.div>
 
               <motion.div variants={fadeInUp}>
-                <p className="text-lg text-gray-400 leading-relaxed max-w-xl border-l-2 border-primary/30 pl-6">
+                <p className="text-base sm:text-lg text-gray-400 leading-relaxed max-w-xl border-l-2 border-primary/30 pl-4 sm:pl-6">
                   Se você precisa de um advogado trabalhista em Salvador, é fundamental contar com atuação técnica, estratégica e focada em resultados reais. O Batista & Alves Advocacia atua na defesa dos direitos do trabalhador, conduzindo ações trabalhistas com análise criteriosa, fundamentação sólida e estratégia processual adequada ao seu caso.
                 </p>
               </motion.div>
 
-              <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row gap-5 pt-4">
+              <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row gap-4 pt-4">
                 <Button
                   size="lg"
-                  className="relative overflow-hidden bg-primary text-[#080C14] hover:bg-[#D49A00] font-bold text-lg h-16 px-10 rounded-full shadow-[0_0_40px_rgba(245,179,1,0.3)] hover:shadow-[0_0_60px_rgba(245,179,1,0.5)] hover:-translate-y-1 transition-all duration-300 group"
+                  className="relative overflow-hidden bg-primary text-[#080C14] hover:bg-[#D49A00] font-bold text-base sm:text-lg h-14 sm:h-16 px-6 sm:px-10 rounded-full shadow-[0_0_40px_rgba(245,179,1,0.3)] hover:shadow-[0_0_60px_rgba(245,179,1,0.5)] hover:-translate-y-1 transition-all duration-300 group w-full sm:w-auto"
                   onClick={() => {
                     trackEvent('click', 'whatsapp_hero');
                     window.open(WHATSAPP_LINK, "_blank");
@@ -225,9 +225,9 @@ export default function Home() {
                 </motion.div>
               </div>
 
-              <div className="grid grid-cols-2 gap-6 w-full relative z-20 items-end">
+              <div className="grid grid-cols-2 gap-3 sm:gap-6 w-full relative z-20 items-end">
                 {/* Dr. Felipe Alves */}
-                <div className="relative group bg-[#0F172A] rounded-[2rem] overflow-hidden border border-white/10 hover:border-primary/30 transition-all duration-500 shadow-2xl h-[450px]">
+                <div className="relative group bg-[#0F172A] rounded-[1.5rem] sm:rounded-[2rem] overflow-hidden border border-white/10 hover:border-primary/30 transition-all duration-500 shadow-2xl h-[260px] sm:h-[380px] lg:h-[450px]">
                   <div className="absolute inset-0 bg-gradient-to-t from-[#080C14] via-transparent to-transparent opacity-90 z-10" />
                   <img
                     src="/team/advogado-felipe-alves.jpeg"
@@ -235,23 +235,23 @@ export default function Home() {
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                     style={{ objectPosition: "center 20%" }}
                   />
-                  <div className="absolute bottom-0 left-0 right-0 p-6 z-20">
-                    <h3 className="text-2xl font-bold text-white mb-1 drop-shadow-md">Dr. Felipe Alves</h3>
-                    <div className="h-1 w-12 bg-primary rounded-full" />
+                  <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-6 z-20">
+                    <h3 className="text-base sm:text-2xl font-bold text-white mb-1 drop-shadow-md">Dr. Felipe Alves</h3>
+                    <div className="h-1 w-8 sm:w-12 bg-primary rounded-full" />
                   </div>
                 </div>
 
                 {/* Dr. Hugo Batista */}
-                <div className="relative group bg-[#0F172A] rounded-[2rem] overflow-hidden border border-white/10 hover:border-primary/30 transition-all duration-500 shadow-2xl h-[450px]">
+                <div className="relative group bg-[#0F172A] rounded-[1.5rem] sm:rounded-[2rem] overflow-hidden border border-white/10 hover:border-primary/30 transition-all duration-500 shadow-2xl h-[260px] sm:h-[380px] lg:h-[450px]">
                   <div className="absolute inset-0 bg-gradient-to-t from-[#080C14] via-transparent to-transparent opacity-90 z-10" />
                   <img
                     src="/team/advogado-hugo.jpeg"
                     alt="Dr. Hugo Batista"
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
-                  <div className="absolute bottom-0 left-0 right-0 p-6 z-20">
-                    <h3 className="text-2xl font-bold text-white mb-1 drop-shadow-md">Dr. Hugo Batista</h3>
-                    <div className="h-1 w-12 bg-primary rounded-full" />
+                  <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-6 z-20">
+                    <h3 className="text-base sm:text-2xl font-bold text-white mb-1 drop-shadow-md">Dr. Hugo Batista</h3>
+                    <div className="h-1 w-8 sm:w-12 bg-primary rounded-full" />
                   </div>
                 </div>
               </div>
