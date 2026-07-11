@@ -1,7 +1,7 @@
 // Dados centralizados de todos os artigos e página pilar
 // Conteúdo baseado exatamente no documento de planejamento do escritório
 
-export const WHATSAPP_BASE = "https://wa.me/5574999443002";
+export const WHATSAPP_BASE = "https://wa.me/557499133391";
 
 export const WHATSAPP_MESSAGES = {
   geral: "Olá, vim pelo site e gostaria de uma análise do meu caso trabalhista. Trabalhei em uma situação que acredito estar irregular.",

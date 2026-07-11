@@ -11,7 +11,7 @@ interface ArticleLayoutProps {
   ctaMessage: string;
 }
 
-const WHATSAPP_BASE = "https://wa.me/5574999443002";
+const WHATSAPP_BASE = "https://wa.me/557499133391";
 
 export default function ArticleLayout({ children, title, ctaMessage }: ArticleLayoutProps) {
   const link = whatsappLink(ctaMessage);

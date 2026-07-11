@@ -7,6 +7,8 @@ import NotFound from "@/pages/not-found";
 import Home from "@/pages/home";
 import Dashboard from "@/pages/dashboard";
 import Guia from "@/pages/guia.tsx";
+import TrabalhistaJacobina from "@/pages/trabalhista-jacobina";
+import FamiliaJacobina from "@/pages/familia-jacobina";
 import ArtigoSemCarteira from "@/pages/artigos/sem-carteira";
 import ArtigoHorasExtras from "@/pages/artigos/horas-extras";
 import ArtigoInsalubridade from "@/pages/artigos/insalubridade";
@@ -29,6 +31,8 @@ function Router() {
   return (
     <Switch>
       <Route path="/" component={Home} />
+      <Route path="/direito-trabalhista-jacobina-miguel-calmon" component={TrabalhistaJacobina} />
+      <Route path="/direito-de-familia-jacobina-miguel-calmon" component={FamiliaJacobina} />
       <Route path="/guia" component={Guia} />
       <Route path="/guia/sem-carteira" component={ArtigoSemCarteira} />
       <Route path="/guia/horas-extras" component={ArtigoHorasExtras} />

@@ -23,14 +23,14 @@ import { Separator } from "@/components/ui/separator";
 
 const WHATSAPP_LINK = "https://wa.me/557499133391";
 
-export default function Home() {
+export default function TrabalhistaJacobina() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
     // Rastreia referrer na chegada
-    trackEvent('pageview', '/', { referrer: getReferrer() });
+    trackEvent('pageview', '/direito-trabalhista-jacobina-miguel-calmon', { referrer: getReferrer() });
     // Rastreia tempo de permanência
-    const cleanup = startTimeTracking('/');
+    const cleanup = startTimeTracking('/direito-trabalhista-jacobina-miguel-calmon');
     return cleanup;
   }, []);
 
@@ -149,18 +149,18 @@ export default function Home() {
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-3 w-3 bg-primary"></span>
                 </span>
-                <span className="text-primary font-semibold tracking-wide text-sm uppercase">Atendimento em Salvador – BA</span>
+                <span className="text-primary font-semibold tracking-wide text-sm uppercase">Atendimento em Jacobina e Miguel Calmon – BA</span>
               </motion.div>
 
               <motion.div variants={fadeInUp}>
                 <h1 className="text-3xl sm:text-4xl lg:text-6xl font-bold text-white leading-[1.15] tracking-tight">
-                  Advogado Trabalhista em Salvador – Especialista em <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FCCA3F] via-[#F5B301] to-[#D49A00] animate-shimmer">Direito do Trabalho</span>
+                  Advogado Trabalhista em Jacobina e Miguel Calmon – Especialista em <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FCCA3F] via-[#F5B301] to-[#D49A00] animate-shimmer">Direito do Trabalho</span>
                 </h1>
               </motion.div>
 
               <motion.div variants={fadeInUp}>
                 <p className="text-base sm:text-lg text-gray-400 leading-relaxed max-w-xl border-l-2 border-primary/30 pl-4 sm:pl-6">
-                  Se você precisa de um advogado trabalhista em Salvador, é fundamental contar com atuação técnica, estratégica e focada em resultados reais. O Batista & Alves Advocacia atua na defesa dos direitos do trabalhador, conduzindo ações trabalhistas com análise criteriosa, fundamentação sólida e estratégia processual adequada ao seu caso.
+                  Se você precisa de um advogado trabalhista em Jacobina e Miguel Calmon, é fundamental contar com atuação técnica, estratégica e focada em resultados reais. O Batista & Alves Advocacia atua na defesa dos direitos do trabalhador, conduzindo ações trabalhistas com análise criteriosa, fundamentação sólida e estratégia processual adequada ao seu caso.
                 </p>
               </motion.div>
 
@@ -207,7 +207,6 @@ export default function Home() {
               {/* RESTORED: Background Glow for Premium Feel */}
               <div className="absolute inset-0 bg-primary/20 blur-[100px] rounded-full opacity-30 animate-pulse-glow" />
 
-              {/* Floating Badge */}
               {/* Floating Badge */}
               <div className="absolute -bottom-20 md:-bottom-28 left-0 right-0 flex justify-center z-30 pointer-events-none">
                 <motion.div
@@ -276,7 +275,7 @@ export default function Home() {
             className="text-center mb-20 space-y-6">
             <h2 className="text-3xl md:text-5xl font-bold text-white tracking-tight">
               Escritório Especializado em <br />
-              <span className="text-primary">Ação Trabalhista em Salvador</span>
+              <span className="text-primary">Ação Trabalhista em Jacobina e Miguel Calmon</span>
             </h2>
             <div className="h-1.5 w-24 bg-gradient-to-r from-primary to-transparent mx-auto rounded-full" />
             <p className="text-gray-400 text-lg max-w-3xl mx-auto leading-relaxed">
@@ -394,7 +393,7 @@ export default function Home() {
               className="text-center mb-16"
             >
               <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">
-                Fui Demitido em Salvador. <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-[#D49A00]">Quais São Meus Direitos?</span>
+                Fui Demitido em Jacobina e Miguel Calmon. <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-[#D49A00]">Quais São Meus Direitos?</span>
               </h2>
               <p className="text-gray-400 text-lg max-w-2xl mx-auto">
                 Muitas rescisões contêm erros de cálculo que prejudicam o trabalhador.
@@ -483,7 +482,7 @@ export default function Home() {
             transition={{ duration: 0.6 }}
             className="text-center mb-24"
           >
-            <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">Processo Trabalhista em Salvador: Como Funciona?</h2>
+            <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">Processo Trabalhista em Jacobina e Miguel Calmon: Como Funciona?</h2>
             <div className="h-1 w-20 bg-primary mx-auto rounded-full" />
           </motion.div>
 
@@ -506,7 +505,7 @@ export default function Home() {
                 },
                 {
                   title: "Protocolo da Ação",
-                  desc: "Distribuição da reclamação trabalhista perante a Justiça do Trabalho em Salvador.",
+                  desc: "Distribuição da reclamação trabalhista perante a Justiça do Trabalho em Jacobina e Miguel Calmon.",
                   icon: Briefcase
                 },
                 {
@@ -673,10 +672,10 @@ export default function Home() {
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">Escritório de Advocacia Trabalhista com Atuação Estratégica</h2>
             <p className="text-gray-400 text-lg mb-6">
-              O Batista & Alves Advocacia possui atuação consolidada em Salvador, oferecendo suporte jurídico completo em Direito do Trabalho.
+              O Batista & Alves Advocacia possui atuação consolidada em Jacobina e Miguel Calmon, oferecendo suporte jurídico completo em Direito do Trabalho.
             </p>
             <p className="text-gray-400 text-lg">
-              Também realiza atendimento em Miguel Calmon e cidades adjacentes, inclusive de forma virtual.
+              Também realiza atendimento em cidades adjacentes, inclusive de forma virtual.
             </p>
           </div>
         </div>
@@ -687,7 +686,7 @@ export default function Home() {
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-primary/5 rounded-full blur-[100px] pointer-events-none" />
 
         <div className="container mx-auto px-6 text-center relative z-10">
-          <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">Fale com um Advogado Trabalhista em Salvador</h2>
+          <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">Fale com um Advogado Trabalhista em Jacobina e Miguel Calmon</h2>
           <p className="text-xl text-gray-400 mb-10 max-w-2xl mx-auto">
             Não deixe seus direitos serem ignorados.
           </p>
@@ -730,7 +729,7 @@ export default function Home() {
                 </div>
               </div>
               <p className="text-gray-500 max-w-md leading-relaxed">
-                Advocacia especializada em Direito Trabalhista em Salvador.
+                Advocacia especializada em Direito Trabalhista em Jacobina e Miguel Calmon.
                 Compromisso com a ética, agilidade e resultados para nossos clientes.
               </p>
             </div>
@@ -750,7 +749,7 @@ export default function Home() {
               <ul className="space-y-4 text-gray-500">
                 <li className="flex items-center gap-2">
                   <MapPin className="h-4 w-4 text-primary" />
-                  Salvador – BA
+                  Jacobina e Miguel Calmon – BA
                 </li>
                 <li className="flex items-center gap-2">
                   <MessageCircle className="h-4 w-4 text-primary" />

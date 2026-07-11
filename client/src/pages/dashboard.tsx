@@ -152,16 +152,17 @@ export default function Dashboard() {
       const startISO = toISO(startDate, false);
       const endISO = toISO(endDate, true);
       
+      console.log("Aplicando filtro:", { startISO, endISO });
       fetchMetrics(startISO, endISO);
       toast({
-        title: "Filtro aplicado",
-        description: "Atualizando métricas para o período selecionado...",
+        title: "Filtro enviado",
+        description: "Buscando dados no servidor...",
       });
     } catch (err) {
-      console.error(err);
+      console.error("Erro no applyFilter:", err);
       toast({
         title: "Erro no filtro",
-        description: "Verifique o formato das datas selecionadas.",
+        description: "Houve um problema ao processar as datas.",
         variant: "destructive",
       });
     }
@@ -264,23 +265,26 @@ export default function Dashboard() {
 
             <Button
               size="sm"
-              disabled={isFetching}
               className="bg-primary text-[#080C14] hover:bg-primary/90 font-bold h-9 px-4 shrink-0 min-w-[80px]"
-              onClick={applyFilter}
+              onClick={() => {
+                console.log("Clique no botão Aplicar");
+                applyFilter();
+              }}
             >
               {isFetching ? "..." : "Aplicar"}
             </Button>
 
-            {(startDate || endDate) && (
-              <Button
-                size="sm"
-                variant="outline"
-                className="border-white/10 hover:bg-white/5 text-gray-400 h-9 px-3 shrink-0"
-                onClick={clearFilter}
-              >
-                ✕ Limpar
-              </Button>
-            )}
+            <Button
+              size="sm"
+              variant="outline"
+              className="border-white/10 hover:bg-white/5 text-gray-400 h-9 px-3 shrink-0"
+              onClick={() => {
+                console.log("Clique no botão Atualizar");
+                clearFilter();
+              }}
+            >
+              Atualizar
+            </Button>
 
             <Button variant="outline" onClick={handleLogout} className="border-white/10 hover:bg-white/5 h-9 w-full sm:w-auto shrink-0">
               <LogOut className="h-4 w-4 mr-2" /> <span>Sair</span>
