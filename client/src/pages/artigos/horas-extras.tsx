@@ -4,22 +4,24 @@ import ArticleSection from "@/components/ArticleSection";
 import WhatsAppCTA from "@/components/WhatsAppCTA";
 import { artigoHorasExtras } from "@/lib/articles";
 import { trackEvent, startTimeTracking, startScrollTracking, getReferrer } from "@/lib/analytics";
+import { useSeo } from "@/hooks/use-seo";
 
 export default function ArtigoHorasExtras() {
   const article = artigoHorasExtras;
 
+  useSeo({
+    title: `${article.title} | Batista & Alves Advocacia`,
+    description: article.metaDescription,
+    path: `/guia/${article.slug}`,
+  });
+
   useEffect(() => {
-    document.title = `${article.title} | Batista & Alves Advocacia`;
-    const metaDesc = document.querySelector('meta[name="description"]');
-    if (metaDesc) {
-      metaDesc.setAttribute("content", article.metaDescription);
-    }
     window.scrollTo(0, 0);
     trackEvent('pageview', '/guia/horas-extras', { referrer: getReferrer() });
     const cleanupTime = startTimeTracking('/guia/horas-extras');
     const cleanupScroll = startScrollTracking('/guia/horas-extras');
     return () => { cleanupTime(); cleanupScroll(); };
-  }, [article]);
+  }, []);
 
   return (
     <ArticleLayout title={article.title} ctaMessage={article.ctaMessage}>

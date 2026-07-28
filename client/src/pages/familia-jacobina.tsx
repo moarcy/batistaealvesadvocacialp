@@ -1,5 +1,7 @@
 import { motion, Variants } from "framer-motion";
 import { trackEvent, startTimeTracking, getReferrer } from "@/lib/analytics";
+import { useSeo } from "@/hooks/use-seo";
+import { SEO_FAMILIA_MIGUEL_CALMON } from "@/lib/seo";
 import {
   Scale,
   Users,
@@ -34,18 +36,7 @@ export default function FamiliaJacobina() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
-  useEffect(() => {
-    // SEO: Dynamic meta tags for this page
-    document.title = "Advogado de Família em Jacobina e Miguel Calmon | Divórcio, Guarda, Pensão | Batista & Alves";
-    const metaDesc = document.querySelector('meta[name="description"]');
-    if (metaDesc) {
-      metaDesc.setAttribute('content', 'Advogado de família em Jacobina e Miguel Calmon. Especialista em divórcio, guarda de filhos, pensão alimentícia, união estável e inventário. Atendimento presencial em Miguel Calmon e online para toda a região.');
-    }
-    const ogTitle = document.querySelector('meta[property="og:title"]');
-    if (ogTitle) ogTitle.setAttribute('content', 'Advogado de Família em Jacobina e Miguel Calmon | Batista & Alves Advocacia');
-    const ogDesc = document.querySelector('meta[property="og:description"]');
-    if (ogDesc) ogDesc.setAttribute('content', 'Especialista em Direito de Família em Jacobina e Miguel Calmon. Divórcio, guarda, pensão, inventário. Atendimento presencial e online.');
-  }, []);
+  useSeo(SEO_FAMILIA_MIGUEL_CALMON);
 
   useEffect(() => {
     // Rastreia referrer na chegada
@@ -819,6 +810,17 @@ export default function FamiliaJacobina() {
             <p className="text-gray-400 text-lg mb-6">
               O Batista & Alves Advocacia presta atendimento jurídico especializado em Direito de Família para clientes de Jacobina, Miguel Calmon e toda a região do Piemonte da Diamantina.
             </p>
+            <p className="text-sm text-gray-500 mb-10">
+              Também atendemos{" "}
+              <a href="/direito-trabalhista-jacobina-miguel-calmon" className="text-primary hover:underline font-medium">
+                Direito Trabalhista em Jacobina e Miguel Calmon
+              </a>
+              {" "}e{" "}
+              <a href="/" className="text-primary hover:underline font-medium">
+                Direito Trabalhista em Salvador
+              </a>
+              .
+            </p>
             <div className="grid sm:grid-cols-2 gap-6 mt-10 max-w-2xl mx-auto">
               <div className="bg-white/5 border border-white/10 rounded-2xl p-6 text-center hover:border-primary/30 transition-all duration-300">
                 <Building2 className="h-8 w-8 text-primary mx-auto mb-3" />
@@ -893,6 +895,8 @@ export default function FamiliaJacobina() {
                 <li><a href="#areas" className="hover:text-primary transition-colors">Áreas de Atuação</a></li>
                 <li><a href="#sobre" className="hover:text-primary transition-colors">Sobre o Escritório</a></li>
                 <li><a href="/guia" className="hover:text-primary transition-colors">Guia Jurídico</a></li>
+                <li><a href="/direito-trabalhista-jacobina-miguel-calmon" className="hover:text-primary transition-colors">Direito Trabalhista</a></li>
+                <li><a href="/" className="hover:text-primary transition-colors">Trabalhista em Salvador</a></li>
                 <li><a href="#contato" className="hover:text-primary transition-colors">Entre em Contato</a></li>
               </ul>
             </div>

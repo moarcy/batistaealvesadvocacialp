@@ -6,15 +6,13 @@ import ArticleCard from "@/components/ArticleCard";
 import WhatsAppCTA from "@/components/WhatsAppCTA";
 import { PILLAR_CARDS, WHATSAPP_MESSAGES } from "@/lib/articles";
 import { trackEvent, startTimeTracking, startScrollTracking, getReferrer } from "@/lib/analytics";
+import { useSeo } from "@/hooks/use-seo";
+import { SEO_GUIA } from "@/lib/seo";
 
 export default function GuiaDireitos() {
+  useSeo(SEO_GUIA);
 
   useEffect(() => {
-    document.title = "Direitos Trabalhistas em Salvador: Guia Completo | Batista & Alves";
-    const metaDesc = document.querySelector('meta[name="description"]');
-    if (metaDesc) {
-      metaDesc.setAttribute("content", "Guia completo sobre direitos trabalhistas em Salvador. Saiba o que você pode cobrar em casos de horas extras, insalubridade, trabalho sem carteira e mais.");
-    }
     window.scrollTo(0, 0);
     // Analytics: rastreia referrer, tempo de permanência e scroll
     trackEvent('pageview', '/guia', { referrer: getReferrer() });

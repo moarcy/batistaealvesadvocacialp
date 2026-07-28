@@ -1,5 +1,7 @@
 import { motion, Variants } from "framer-motion";
 import { trackEvent, startTimeTracking, getReferrer } from "@/lib/analytics";
+import { useSeo } from "@/hooks/use-seo";
+import { SEO_HOME } from "@/lib/seo";
 import {
   Scale,
   Users,
@@ -25,6 +27,8 @@ const WHATSAPP_LINK = "https://wa.me/557499133391";
 
 export default function Home() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  useSeo(SEO_HOME);
 
   useEffect(() => {
     // Rastreia referrer na chegada
@@ -675,9 +679,17 @@ export default function Home() {
             <p className="text-gray-400 text-lg mb-6">
               O Batista & Alves Advocacia possui atuação consolidada em Salvador, oferecendo suporte jurídico completo em Direito do Trabalho.
             </p>
-            <p className="text-gray-400 text-lg">
+            <p className="text-gray-400 text-lg mb-8">
               Também realiza atendimento em Miguel Calmon e cidades adjacentes, inclusive de forma virtual.
             </p>
+            <div className="flex flex-col sm:flex-row justify-center gap-4 text-sm">
+              <a href="/direito-trabalhista-jacobina-miguel-calmon" className="text-primary hover:underline font-medium">
+                Advogado Trabalhista em Jacobina e Miguel Calmon
+              </a>
+              <a href="/direito-de-familia-jacobina-miguel-calmon" className="text-primary hover:underline font-medium">
+                Advogado de Família em Jacobina e Miguel Calmon
+              </a>
+            </div>
           </div>
         </div>
       </section>
@@ -741,6 +753,8 @@ export default function Home() {
                 <li><a href="#areas" className="hover:text-primary transition-colors">Áreas de Atuação</a></li>
                 <li><a href="#sobre" className="hover:text-primary transition-colors">Sobre o Escritório</a></li>
                 <li><a href="/guia" className="hover:text-primary transition-colors">Guia de Direitos</a></li>
+                <li><a href="/direito-trabalhista-jacobina-miguel-calmon" className="hover:text-primary transition-colors">Trabalhista em Miguel Calmon</a></li>
+                <li><a href="/direito-de-familia-jacobina-miguel-calmon" className="hover:text-primary transition-colors">Família em Miguel Calmon</a></li>
                 <li><a href="#contato" className="hover:text-primary transition-colors">Entre em Contato</a></li>
               </ul>
             </div>
