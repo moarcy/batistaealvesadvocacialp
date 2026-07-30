@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+
+Disallow: /dashboard
+
+Sitemap: https://www.batistaealvesadvocacia.com.br/sitemap.xml
