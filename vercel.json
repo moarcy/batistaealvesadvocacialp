@@ -7,6 +7,13 @@
       "maxDuration": 15
     }
   },
+  "redirects": [
+    {
+      "source": "/advogado-trabalhista-em-salvador",
+      "destination": "/",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     {
       "source": "/api/(.*)",
