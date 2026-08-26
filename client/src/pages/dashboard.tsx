@@ -120,44 +120,76 @@ export default function Dashboard() {
     }
   };
 
+  const toISO = (val: string, isEnd: boolean) => {
+    if (!val) return undefined;
+
+    if (filterMode === "date") {
+      // YYYY-MM-DD
+      if (val.length < 10) return undefined;
+      const [year, month, day] = val.slice(0, 10).split("-").map(Number);
+      if (!year || !month || !day) return undefined;
+      const date = new Date(year, month - 1, day);
+      if (isNaN(date.getTime())) return undefined;
+
+      if (isEnd) date.setHours(23, 59, 59, 999);
+      else date.setHours(0, 0, 0, 0);
+
+      return date.toISOString();
+    }
+
+    // datetime-local: YYYY-MM-DDTHH:mm
+    const date = new Date(val);
+    if (isNaN(date.getTime())) return undefined;
+    return date.toISOString();
+  };
+
+  const switchFilterMode = (mode: "date" | "datetime") => {
+    if (mode === filterMode) return;
+    // Converte valores ao trocar o tipo do input (date ↔ datetime-local)
+    setStartDate((prev) => {
+      if (!prev) return "";
+      if (mode === "date") return prev.slice(0, 10);
+      if (prev.length === 10) return `${prev}T00:00`;
+      return prev.slice(0, 16);
+    });
+    setEndDate((prev) => {
+      if (!prev) return "";
+      if (mode === "date") return prev.slice(0, 10);
+      if (prev.length === 10) return `${prev}T23:59`;
+      return prev.slice(0, 16);
+    });
+    setFilterMode(mode);
+  };
+
   const applyFilter = () => {
     try {
       if (!startDate && !endDate) {
         fetchMetrics();
         return;
       }
-      
-      const toISO = (val: string, isEnd: boolean) => {
-        if (!val) return undefined;
-        
-        if (filterMode === "date") {
-          // Garante que temos uma data completa YYYY-MM-DD
-          if (val.length < 10) return undefined;
-          const [year, month, day] = val.split('-').map(Number);
-          const date = new Date(year, month - 1, day);
-          if (isNaN(date.getTime())) return undefined;
-          
-          if (isEnd) date.setHours(23, 59, 59, 999);
-          else date.setHours(0, 0, 0, 0);
-          
-          return date.toISOString();
-        } else {
-          // datetime-local: YYYY-MM-DDTHH:mm
-          const date = new Date(val);
-          if (isNaN(date.getTime())) return undefined;
-          return date.toISOString();
-        }
-      };
-      
+
       const startISO = toISO(startDate, false);
       const endISO = toISO(endDate, true);
-      
-      console.log("Aplicando filtro:", { startISO, endISO });
+
+      if ((startDate && !startISO) || (endDate && !endISO)) {
+        toast({
+          title: "Datas inválidas",
+          description: "Verifique o formato das datas selecionadas.",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      if (startISO && endISO && new Date(startISO) > new Date(endISO)) {
+        toast({
+          title: "Intervalo inválido",
+          description: "A data inicial deve ser anterior à data final.",
+          variant: "destructive",
+        });
+        return;
+      }
+
       fetchMetrics(startISO, endISO);
-      toast({
-        title: "Filtro enviado",
-        description: "Buscando dados no servidor...",
-      });
     } catch (err) {
       console.error("Erro no applyFilter:", err);
       toast({
@@ -232,16 +264,18 @@ export default function Dashboard() {
             {/* Toggle modo data / data+hora */}
             <div className="flex rounded-lg overflow-hidden border border-white/10 text-xs shrink-0">
               <button
+                type="button"
                 className={`px-3 py-1.5 transition-colors ${
                   filterMode === "date" ? "bg-primary text-[#080C14] font-bold" : "bg-[#0F172A] text-gray-400 hover:text-white"
                 }`}
-                onClick={() => setFilterMode("date")}
+                onClick={() => switchFilterMode("date")}
               >Dia</button>
               <button
+                type="button"
                 className={`px-3 py-1.5 transition-colors ${
                   filterMode === "datetime" ? "bg-primary text-[#080C14] font-bold" : "bg-[#0F172A] text-gray-400 hover:text-white"
                 }`}
-                onClick={() => setFilterMode("datetime")}
+                onClick={() => switchFilterMode("datetime")}
               >Dia + Hora</button>
             </div>
 
@@ -266,10 +300,8 @@ export default function Dashboard() {
             <Button
               size="sm"
               className="bg-primary text-[#080C14] hover:bg-primary/90 font-bold h-9 px-4 shrink-0 min-w-[80px]"
-              onClick={() => {
-                console.log("Clique no botão Aplicar");
-                applyFilter();
-              }}
+              disabled={isFetching}
+              onClick={applyFilter}
             >
               {isFetching ? "..." : "Aplicar"}
             </Button>
@@ -278,10 +310,8 @@ export default function Dashboard() {
               size="sm"
               variant="outline"
               className="border-white/10 hover:bg-white/5 text-gray-400 h-9 px-3 shrink-0"
-              onClick={() => {
-                console.log("Clique no botão Atualizar");
-                clearFilter();
-              }}
+              disabled={isFetching}
+              onClick={clearFilter}
             >
               Atualizar
             </Button>
@@ -291,6 +321,12 @@ export default function Dashboard() {
             </Button>
           </div>
         </div>
+
+        {!metrics && (
+          <div className="rounded-lg border border-white/10 bg-[#0F172A] p-8 text-center text-gray-400">
+            {isFetching ? "Carregando métricas..." : "Nenhuma métrica carregada. Clique em Atualizar."}
+          </div>
+        )}
 
         {metrics && (
           <>

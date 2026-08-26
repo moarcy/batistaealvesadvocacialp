@@ -93,19 +93,29 @@ export async function registerRoutes(
 
     try {
       const { startDate, endDate } = req.query;
-      
+
       let start: Date | undefined = undefined;
       let end: Date | undefined = undefined;
 
-      if (typeof startDate === "string") {
+      if (typeof startDate === "string" && startDate.trim()) {
         start = new Date(startDate);
+        if (isNaN(start.getTime())) {
+          return res.status(400).json({ error: "startDate inválida" });
+        }
       }
-      if (typeof endDate === "string") {
+      if (typeof endDate === "string" && endDate.trim()) {
         end = new Date(endDate);
-        // If it's just a date without time (length 10), set to end of day
+        if (isNaN(end.getTime())) {
+          return res.status(400).json({ error: "endDate inválida" });
+        }
+        // If it's just a date without time (YYYY-MM-DD), set to end of day
         if (endDate.length <= 10) {
           end.setHours(23, 59, 59, 999);
         }
+      }
+
+      if (start && end && start.getTime() > end.getTime()) {
+        return res.status(400).json({ error: "startDate deve ser anterior a endDate" });
       }
 
       const metrics = await storage.getMetrics(start, end);
