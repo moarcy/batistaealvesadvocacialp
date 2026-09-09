@@ -1,3 +1,5 @@
+import { GUIA_FAQ_ITEMS, HOME_FAQ_ITEMS, buildFaqJsonLd } from "./articles";
+
 export const SITE_URL = "https://www.batistaealvesadvocacia.com.br";
 
 export interface SeoConfig {
@@ -10,36 +12,39 @@ export interface SeoConfig {
 }
 
 export const SEO_HOME: SeoConfig = {
-  title: "Batista & Alves Advocacia | Especialistas em Direito Trabalhista e Família",
+  title: "Advogado Trabalhista em Salvador | Batista & Alves",
   description:
-    "Escritório de advocacia especialista em Direito Trabalhista e Direito de Família. Atendimento presencial e online com atuação estratégica para garantir seus direitos.",
+    "Advogado trabalhista em Salvador: análise gratuita do seu caso pelo WhatsApp. Atendimento rápido, honorários transparentes. Fale agora com um especialista.",
   path: "/",
   ogTitle: "Batista & Alves Advocacia | Direito Trabalhista e Família",
   ogDescription:
     "Escritório especialista em Direito Trabalhista e Direito de Família. Atuação estratégica para garantir a proteção dos seus direitos e da sua família.",
-  jsonLd: {
-    "@context": "https://schema.org",
-    "@type": "LegalService",
-    name: "Batista & Alves Advocacia",
-    areaServed: { "@type": "City", name: "Salvador" },
-    legalName: "Batista & Alves Advocacia",
-    description: "Escritório especializado em Direito Trabalhista com atuação em Salvador.",
-    telephone: "+55-74-99133-3391",
-    url: `${SITE_URL}/`,
-    address: {
-      "@type": "PostalAddress",
-      addressLocality: "Salvador",
-      addressRegion: "BA",
-      addressCountry: "BR",
+  // HOME_FAQ_ITEMS nunca é vazio, então o FAQPage abaixo sempre é gerado.
+  jsonLd: [
+    {
+      "@context": "https://schema.org",
+      "@type": "LegalService",
+      name: "Batista & Alves Advocacia",
+      areaServed: { "@type": "City", name: "Salvador" },
+      legalName: "Batista & Alves Advocacia",
+      description: "Escritório especializado em Direito Trabalhista com atuação em Salvador.",
+      telephone: "+55-74-99133-3391",
+      url: `${SITE_URL}/`,
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: "Salvador",
+        addressRegion: "BA",
+        addressCountry: "BR",
+      },
     },
-  },
+    buildFaqJsonLd(HOME_FAQ_ITEMS) as Record<string, unknown>,
+  ],
 };
 
 export const SEO_TRABALHISTA_MIGUEL_CALMON: SeoConfig = {
-  title:
-    "Advogado Trabalhista em Jacobina e Miguel Calmon | Rescisão, Horas Extras | Batista & Alves",
+  title: "Advogado Trabalhista em Jacobina e Miguel Calmon | Batista & Alves",
   description:
-    "Advogado trabalhista em Jacobina e Miguel Calmon. Especialista em ações trabalhistas, rescisão, horas extras e reconhecimento de vínculo. Atendimento presencial em Miguel Calmon e remoto.",
+    "Advogado trabalhista em Jacobina e Miguel Calmon: análise gratuita do seu caso pelo WhatsApp. Rescisão, horas extras e reconhecimento de vínculo. Atendimento presencial e online.",
   path: "/direito-trabalhista-jacobina-miguel-calmon",
   ogTitle: "Advogado Trabalhista em Jacobina e Miguel Calmon | Batista & Alves Advocacia",
   ogDescription:
@@ -67,10 +72,9 @@ export const SEO_TRABALHISTA_MIGUEL_CALMON: SeoConfig = {
 };
 
 export const SEO_FAMILIA_MIGUEL_CALMON: SeoConfig = {
-  title:
-    "Advogado de Família em Jacobina e Miguel Calmon | Divórcio, Guarda, Pensão | Batista & Alves",
+  title: "Advogado de Família em Jacobina e Miguel Calmon | Batista & Alves",
   description:
-    "Advogado de família em Jacobina e Miguel Calmon. Especialista em divórcio, guarda de filhos, pensão alimentícia, união estável e inventário. Atendimento presencial em Miguel Calmon e online para toda a região.",
+    "Advogado de família em Jacobina e Miguel Calmon: fale agora pelo WhatsApp sobre divórcio, guarda, pensão ou inventário. Atendimento presencial e online para toda a região.",
   path: "/direito-de-familia-jacobina-miguel-calmon",
   ogTitle: "Advogado de Família em Jacobina e Miguel Calmon | Batista & Alves Advocacia",
   ogDescription:
@@ -154,4 +158,5 @@ export const SEO_GUIA: SeoConfig = {
   description:
     "Guia completo sobre direitos trabalhistas em Salvador. Saiba o que você pode cobrar em casos de horas extras, insalubridade, trabalho sem carteira e mais.",
   path: "/guia",
+  jsonLd: buildFaqJsonLd(GUIA_FAQ_ITEMS),
 };

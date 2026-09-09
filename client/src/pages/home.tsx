@@ -2,6 +2,7 @@ import { motion, Variants } from "framer-motion";
 import { trackEvent, startTimeTracking, getReferrer } from "@/lib/analytics";
 import { useSeo } from "@/hooks/use-seo";
 import { SEO_HOME } from "@/lib/seo";
+import { HOME_FAQ_ITEMS } from "@/lib/articles";
 import {
   Scale,
   Users,
@@ -12,6 +13,8 @@ import {
   Clock,
   CheckCircle2,
   ChevronRight,
+  ChevronDown,
+  HelpCircle,
   Menu,
   X,
   Briefcase,
@@ -27,6 +30,7 @@ const WHATSAPP_LINK = "https://wa.me/557499133391";
 
 export default function Home() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   useSeo(SEO_HOME);
 
@@ -638,6 +642,85 @@ export default function Home() {
               </motion.div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section className="py-24 bg-[#0B1220] relative overflow-hidden border-t border-white/5">
+        <div className="absolute inset-0 opacity-[0.03]"
+          style={{ backgroundImage: 'radial-gradient(#F5B301 1px, transparent 1px)', backgroundSize: '40px 40px' }}>
+        </div>
+
+        <div className="container mx-auto px-6 relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8 }}
+            className="text-center mb-16 space-y-4"
+          >
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-md mx-auto">
+              <HelpCircle className="h-4 w-4 text-primary" />
+              <span className="text-primary font-semibold text-sm uppercase">Perguntas Frequentes</span>
+            </div>
+            <h2 className="text-3xl md:text-5xl font-bold text-white tracking-tight">
+              Dúvidas Sobre <span className="text-primary">Direito Trabalhista?</span>
+            </h2>
+            <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+              Reunimos as perguntas mais comuns de quem busca um advogado trabalhista em Salvador.
+            </p>
+          </motion.div>
+
+          <div className="max-w-3xl mx-auto space-y-4">
+            {HOME_FAQ_ITEMS.map((item, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ delay: i * 0.05, duration: 0.4 }}
+              >
+                <button
+                  onClick={() => setOpenFaq(openFaq === i ? null : i)}
+                  className="w-full text-left bg-[#0F172A] border border-white/5 hover:border-primary/30 rounded-2xl p-6 transition-all duration-300 group"
+                >
+                  <div className="flex items-center justify-between gap-4">
+                    <h3 className="text-lg font-bold text-white group-hover:text-primary transition-colors">{item.question}</h3>
+                    <ChevronDown className={`h-5 w-5 text-primary shrink-0 transition-transform duration-300 ${openFaq === i ? 'rotate-180' : ''}`} />
+                  </div>
+                  {openFaq === i && (
+                    <motion.p
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: 'auto' }}
+                      className="text-gray-400 mt-4 leading-relaxed text-base"
+                    >
+                      {item.answer}
+                    </motion.p>
+                  )}
+                </button>
+              </motion.div>
+            ))}
+          </div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="text-center mt-12"
+          >
+            <p className="text-gray-400 mb-6">Ainda tem dúvidas? Fale diretamente com um advogado.</p>
+            <Button
+              className="bg-primary text-[#080C14] hover:bg-[#D49A00] font-bold h-12 px-8 rounded-full shadow-lg shadow-primary/10 hover:shadow-primary/30 transition-all duration-300"
+              onClick={() => {
+                trackEvent('click', 'whatsapp_faq');
+                window.open(WHATSAPP_LINK, "_blank");
+              }}
+            >
+              <MessageCircle className="mr-2 h-5 w-5" />
+              Tirar minha dúvida no WhatsApp
+            </Button>
+          </motion.div>
         </div>
       </section>
 

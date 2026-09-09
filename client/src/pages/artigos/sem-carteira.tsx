@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import ArticleLayout from "@/components/ArticleLayout";
 import ArticleSection from "@/components/ArticleSection";
 import WhatsAppCTA from "@/components/WhatsAppCTA";
-import { artigoSemCarteira } from "@/lib/articles";
+import { artigoSemCarteira, getFaqItems, buildFaqJsonLd } from "@/lib/articles";
 import { trackEvent, startTimeTracking, startScrollTracking, getReferrer } from "@/lib/analytics";
 import { useSeo } from "@/hooks/use-seo";
 
@@ -13,6 +13,7 @@ export default function ArtigoSemCarteira() {
     title: `${article.title} | Batista & Alves Advocacia`,
     description: article.metaDescription,
     path: `/guia/${article.slug}`,
+    jsonLd: buildFaqJsonLd(getFaqItems(article)),
   });
 
   useEffect(() => {
