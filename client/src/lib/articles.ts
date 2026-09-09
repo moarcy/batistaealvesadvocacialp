@@ -83,6 +83,37 @@ export function buildFaqJsonLd(items: FaqItem[]): Record<string, unknown> | unde
   };
 }
 
+// FAQ da home — fonte única de verdade: o mesmo array alimenta a seção
+// visível em home.tsx e o schema FAQPage em seo.ts, garantindo que pergunta
+// e resposta do rich snippet sejam idênticas ao que o visitante vê na página.
+export const HOME_FAQ_ITEMS: FaqItem[] = [
+  {
+    question: "Quanto custa um advogado trabalhista em Salvador?",
+    answer:
+      "Os honorários variam conforme a complexidade do caso. Fazemos uma análise inicial gratuita do seu caso, com valores acessíveis e possibilidade de parcelamento. Fale conosco pelo WhatsApp para saber mais.",
+  },
+  {
+    question: "Preciso ir até o escritório para entrar com uma ação trabalhista?",
+    answer:
+      "Não necessariamente. Além do atendimento presencial em Salvador, também atendemos por WhatsApp e videochamada, com total segurança jurídica, para quem prefere resolver tudo à distância.",
+  },
+  {
+    question: "Qual o prazo para cobrar direitos trabalhistas?",
+    answer:
+      "Você pode cobrar direitos referentes aos últimos 5 anos de trabalho. Quanto antes agir, maior a chance de recuperar os valores devidos integralmente.",
+  },
+  {
+    question: "Quanto tempo demora um processo trabalhista?",
+    answer:
+      "Depende da complexidade do caso e da vara em que tramita. Pode ser resolvido por acordo em poucos meses ou, em casos mais complexos, levar mais tempo até a sentença. Buscamos sempre a solução mais rápida e vantajosa para você.",
+  },
+  {
+    question: "Fui demitido por justa causa, mas acho que foi injusto. Posso reverter?",
+    answer:
+      "Sim. Se a demissão por justa causa não seguiu os requisitos legais, é possível reverter na Justiça do Trabalho e garantir o pagamento de todas as verbas rescisórias devidas.",
+  },
+];
+
 // FAQ da página pilar "/guia" — respostas copiadas literalmente do conteúdo
 // já exibido em guia.tsx (mesmo texto que o visitante vê na página).
 export const GUIA_FAQ_ITEMS: FaqItem[] = [
