@@ -1,3 +1,5 @@
+import { GUIA_FAQ_ITEMS, buildFaqJsonLd } from "./articles";
+
 export const SITE_URL = "https://www.batistaealvesadvocacia.com.br";
 
 export interface SeoConfig {
@@ -10,9 +12,9 @@ export interface SeoConfig {
 }
 
 export const SEO_HOME: SeoConfig = {
-  title: "Batista & Alves Advocacia | Especialistas em Direito Trabalhista e Família",
+  title: "Advogado Trabalhista em Salvador | Batista & Alves",
   description:
-    "Escritório de advocacia especialista em Direito Trabalhista e Direito de Família. Atendimento presencial e online com atuação estratégica para garantir seus direitos.",
+    "Advogado trabalhista em Salvador: análise gratuita do seu caso pelo WhatsApp. Atendimento rápido, honorários transparentes. Fale agora com um especialista.",
   path: "/",
   ogTitle: "Batista & Alves Advocacia | Direito Trabalhista e Família",
   ogDescription:
@@ -154,4 +156,5 @@ export const SEO_GUIA: SeoConfig = {
   description:
     "Guia completo sobre direitos trabalhistas em Salvador. Saiba o que você pode cobrar em casos de horas extras, insalubridade, trabalho sem carteira e mais.",
   path: "/guia",
+  jsonLd: buildFaqJsonLd(GUIA_FAQ_ITEMS),
 };

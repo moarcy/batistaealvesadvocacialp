@@ -40,6 +40,74 @@ export interface Article {
   ctaMessage: string;
 }
 
+export interface FaqItem {
+  question: string;
+  answer: string;
+}
+
+// ─── FAQ (SEO) ──────────────────────────────────────────────────────────────
+// O schema de FAQ NÃO deve conter conteúdo novo: o Google exige que a
+// pergunta/resposta estejam visíveis na própria página. Por isso, as funções
+// abaixo derivam o FAQPage diretamente das seções que já são renderizadas no
+// artigo (ArticleSection), reaproveitando os títulos que já são perguntas
+// ("...?") e os parágrafos/listas/destaques já exibidos como resposta.
+function sectionToAnswer(section: ArticleSection): string {
+  const parts: string[] = [];
+  if (section.paragraphs?.length) parts.push(section.paragraphs.join(" "));
+  if (section.list?.length) parts.push(`${section.list.join("; ")}.`);
+  if (section.highlight) parts.push(section.highlight);
+  return parts.join(" ").trim();
+}
+
+export function getFaqItems(article: Article, maxItems = 6): FaqItem[] {
+  return article.sections
+    .filter((section) => !!section.heading?.trim().endsWith("?"))
+    .slice(0, maxItems)
+    .map((section) => ({ question: section.heading as string, answer: sectionToAnswer(section) }))
+    .filter((item) => item.answer.length > 0);
+}
+
+export function buildFaqJsonLd(items: FaqItem[]): Record<string, unknown> | undefined {
+  if (!items.length) return undefined;
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: items.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.answer,
+      },
+    })),
+  };
+}
+
+// FAQ da página pilar "/guia" — respostas copiadas literalmente do conteúdo
+// já exibido em guia.tsx (mesmo texto que o visitante vê na página).
+export const GUIA_FAQ_ITEMS: FaqItem[] = [
+  {
+    question: "Como saber se você foi prejudicado no seu trabalho?",
+    answer:
+      "Você pode ter direitos a receber se: a empresa não assinou sua carteira, você trabalhava além do horário, não recebeu adicionais obrigatórios ou foi dispensado sem receber corretamente. Esses são sinais claros de irregularidade.",
+  },
+  {
+    question: "O que você pode receber em uma ação trabalhista?",
+    answer:
+      "Dependendo do caso, é possível recuperar salários não pagos corretamente, férias + 1/3, 13º salário, FGTS + multa de 40%, horas extras e adicionais (insalubridade ou periculosidade). Em muitos casos, o valor acumulado pode ser significativo.",
+  },
+  {
+    question: "Qual o prazo para buscar seus direitos trabalhistas?",
+    answer:
+      "Você pode cobrar direitos referentes aos últimos 5 anos. Isso significa que quanto antes agir, maior a chance de recuperar valores.",
+  },
+  {
+    question: "Vale a pena procurar um advogado trabalhista?",
+    answer:
+      "Sim, principalmente quando existe dúvida sobre valores, há indícios de irregularidade ou o trabalhador não recebeu corretamente. Uma análise técnica evita riscos e mostra exatamente o que pode ser feito.",
+  },
+];
+
 // ─── ARTIGO 1 ─────────────────────────────────────────────────────────────────
 export const artigoSemCarteira: Article = {
   slug: "sem-carteira",
