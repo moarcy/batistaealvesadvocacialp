@@ -1,7 +1,10 @@
 import { type User, type InsertUser, type AnalyticsEvent, type InsertAnalyticsEvent, users, analyticsEvents } from "../shared/schema.js";
 import { db } from "./db.js";
-import { eq, and, gte, lte } from "drizzle-orm";
-import { randomUUID } from "crypto";
+import { eq } from "drizzle-orm";
+import {
+  aggregateMetrics,
+  filterEventsByDateRange,
+} from "./analytics-utils.js";
 
 export interface IStorage {
   getUser(id: string): Promise<User | undefined>;
@@ -44,105 +47,9 @@ export class DatabaseStorage implements IStorage {
   }
 
   async getMetrics(startDate?: Date, endDate?: Date) {
-    let query = db.select().from(analyticsEvents);
-    // Simple filter in memory for simplicity of implementation in this context
-    const allEvents = await query;
-    
-    let filteredEvents = allEvents;
-    if (startDate || endDate) {
-      filteredEvents = allEvents.filter(e => {
-        try {
-          // Normalização super-flexível
-          let raw = e.createdAt;
-          if (!raw) return true;
-          
-          // Se for uma data ISO pura, new Date() resolve
-          const date = new Date(raw.replace(' ', 'T'));
-          
-          if (isNaN(date.getTime())) return true; // Se não conseguir ler a data, não filtra (mostra o dado)
-
-          const time = date.getTime();
-          if (startDate && time < startDate.getTime()) return false;
-          if (endDate && time > endDate.getTime()) return false;
-          return true;
-        } catch (err) {
-          return true; // Na dúvida, não filtra
-        }
-      });
-    }
-
-    const totalVisits = filteredEvents.filter(e => e.eventType === 'pageview').length;
-    const totalClicks = filteredEvents.filter(e => e.eventType === 'click').length;
-    
-    // Calculate unique visits by unique session IDs that had a pageview
-    const uniqueSessions = new Set(
-      filteredEvents.filter(e => e.eventType === 'pageview').map(e => e.sessionId)
-    );
-    const uniqueVisits = uniqueSessions.size;
-
-    const ctr = totalVisits > 0 ? ((totalClicks / totalVisits) * 100).toFixed(2) : "0.00";
-
-    // Grouping by Date for charts
-    const byDate = new Map<string, { visits: number; clicks: number }>();
-    for (const e of filteredEvents) {
-      const dateKey = new Date(e.createdAt).toISOString().split('T')[0];
-      if (!byDate.has(dateKey)) {
-        byDate.set(dateKey, { visits: 0, clicks: 0 });
-      }
-      const dayData = byDate.get(dateKey)!;
-      if (e.eventType === 'pageview') dayData.visits++;
-      if (e.eventType === 'click') dayData.clicks++;
-    }
-
-    const eventsByDate = Array.from(byDate.entries()).map(([date, data]) => ({
-      date,
-      visits: data.visits,
-      clicks: data.clicks
-    })).sort((a, b) => a.date.localeCompare(b.date));
-
-    const pageViewsByPath: Record<string, number> = {};
-    const clicksByPath: Record<string, number> = {};
-    const referrers: Record<string, number> = {};
-    const scrollDepthByPath: Record<string, { d50: number; d100: number }> = {};
-    let totalTimeSeconds = 0;
-    let timeOnPageCount = 0;
-
-    for (const e of filteredEvents) {
-      const meta = (e.metadata as Record<string, any> | null) ?? {};
-      if (e.eventType === 'pageview') {
-        pageViewsByPath[e.path] = (pageViewsByPath[e.path] || 0) + 1;
-        if (meta.referrer) {
-          referrers[meta.referrer] = (referrers[meta.referrer] || 0) + 1;
-        }
-      }
-      if (e.eventType === 'click') {
-        clicksByPath[e.path] = (clicksByPath[e.path] || 0) + 1;
-      }
-      if (e.eventType === 'time_on_page' && typeof meta.seconds === 'number') {
-        totalTimeSeconds += meta.seconds;
-        timeOnPageCount++;
-      }
-      if (e.eventType === 'scroll_depth') {
-        if (!scrollDepthByPath[e.path]) scrollDepthByPath[e.path] = { d50: 0, d100: 0 };
-        if (meta.depth === 50) scrollDepthByPath[e.path].d50++;
-        if (meta.depth === 100) scrollDepthByPath[e.path].d100++;
-      }
-    }
-
-    const avgTimeOnPage = timeOnPageCount > 0 ? Math.round(totalTimeSeconds / timeOnPageCount) : 0;
-
-    return {
-      uniqueVisits,
-      totalVisits,
-      totalClicks,
-      ctr,
-      eventsByDate,
-      pageViewsByPath,
-      clicksByPath,
-      avgTimeOnPage,
-      referrers,
-      scrollDepthByPath,
-    };
+    const allEvents = await db.select().from(analyticsEvents);
+    const filteredEvents = filterEventsByDateRange(allEvents, startDate, endDate);
+    return aggregateMetrics(filteredEvents);
   }
 }
 
@@ -169,107 +76,47 @@ export class MemStorage implements IStorage {
 
   async createUser(insertUser: InsertUser): Promise<User> {
     const id = this.currentId++;
-    const user: User = { ...insertUser, id };
-    this.users.set(id.toString(), user);
+    const user: User = { ...insertUser, id: String(id) };
+    this.users.set(String(id), user);
     return user;
   }
 
   async trackEvent(insertAnalyticsEvent: InsertAnalyticsEvent): Promise<AnalyticsEvent> {
     const event: AnalyticsEvent = {
       ...insertAnalyticsEvent,
-      id: this.currentId++,
-      createdAt: new Date().toISOString()
+      id: String(this.currentId++),
+      createdAt: new Date().toISOString(),
+      metadata: insertAnalyticsEvent.metadata ?? null,
+    };
+    this.analyticsEvents.push(event);
+    return event;
+  }
+
+  /** Test helper: insert an event with an explicit createdAt (Postgres-like formats). */
+  seedEvent(
+    insertAnalyticsEvent: InsertAnalyticsEvent,
+    createdAt: string,
+  ): AnalyticsEvent {
+    const event: AnalyticsEvent = {
+      ...insertAnalyticsEvent,
+      id: String(this.currentId++),
+      createdAt,
+      metadata: insertAnalyticsEvent.metadata ?? null,
     };
     this.analyticsEvents.push(event);
     return event;
   }
 
   async getMetrics(startDate?: Date, endDate?: Date) {
-    let filteredEvents = this.analyticsEvents;
-    if (startDate || endDate) {
-      filteredEvents = this.analyticsEvents.filter(e => {
-        const rawDate = e.createdAt.includes('T') ? e.createdAt : e.createdAt.replace(' ', 'T');
-        const normalized = rawDate.endsWith('Z') || rawDate.includes('+') ? rawDate : rawDate + 'Z';
-        const date = new Date(normalized);
-        if (startDate && date < startDate) return false;
-        if (endDate && date > endDate) return false;
-        return true;
-      });
-    }
-
-    const totalVisits = filteredEvents.filter(e => e.eventType === 'pageview').length;
-    const totalClicks = filteredEvents.filter(e => e.eventType === 'click').length;
-    
-    const uniqueSessions = new Set(
-      filteredEvents.filter(e => e.eventType === 'pageview').map(e => e.sessionId)
+    const filteredEvents = filterEventsByDateRange(
+      this.analyticsEvents,
+      startDate,
+      endDate,
     );
-    const uniqueVisits = uniqueSessions.size;
-
-    const ctr = totalVisits > 0 ? ((totalClicks / totalVisits) * 100).toFixed(2) : "0.00";
-
-    const byDate = new Map<string, { visits: number; clicks: number }>();
-    for (const e of filteredEvents) {
-      const dateKey = new Date(e.createdAt).toISOString().split('T')[0];
-      if (!byDate.has(dateKey)) {
-        byDate.set(dateKey, { visits: 0, clicks: 0 });
-      }
-      const dayData = byDate.get(dateKey)!;
-      if (e.eventType === 'pageview') dayData.visits++;
-      if (e.eventType === 'click') dayData.clicks++;
-    }
-
-    const eventsByDate = Array.from(byDate.entries()).map(([date, data]) => ({
-      date,
-      visits: data.visits,
-      clicks: data.clicks
-    })).sort((a, b) => a.date.localeCompare(b.date));
-
-    const pageViewsByPath: Record<string, number> = {};
-    const clicksByPath: Record<string, number> = {};
-    const referrers: Record<string, number> = {};
-    const scrollDepthByPath: Record<string, { d50: number; d100: number }> = {};
-    let totalTimeSeconds = 0;
-    let timeOnPageCount = 0;
-
-    for (const e of filteredEvents) {
-      const meta = (e.metadata as Record<string, any> | null) ?? {};
-      if (e.eventType === 'pageview') {
-        pageViewsByPath[e.path] = (pageViewsByPath[e.path] || 0) + 1;
-        if (meta.referrer) {
-          referrers[meta.referrer] = (referrers[meta.referrer] || 0) + 1;
-        }
-      }
-      if (e.eventType === 'click') {
-        clicksByPath[e.path] = (clicksByPath[e.path] || 0) + 1;
-      }
-      if (e.eventType === 'time_on_page' && typeof meta.seconds === 'number') {
-        totalTimeSeconds += meta.seconds;
-        timeOnPageCount++;
-      }
-      if (e.eventType === 'scroll_depth') {
-        if (!scrollDepthByPath[e.path]) scrollDepthByPath[e.path] = { d50: 0, d100: 0 };
-        if (meta.depth === 50) scrollDepthByPath[e.path].d50++;
-        if (meta.depth === 100) scrollDepthByPath[e.path].d100++;
-      }
-    }
-
-    const avgTimeOnPage = timeOnPageCount > 0 ? Math.round(totalTimeSeconds / timeOnPageCount) : 0;
-
-    return {
-      uniqueVisits,
-      totalVisits,
-      totalClicks,
-      ctr,
-      eventsByDate,
-      pageViewsByPath,
-      clicksByPath,
-      avgTimeOnPage,
-      referrers,
-      scrollDepthByPath,
-    };
+    return aggregateMetrics(filteredEvents);
   }
 }
 
-export const storage = process.env.DATABASE_URL 
-  ? new DatabaseStorage() 
+export const storage = process.env.DATABASE_URL
+  ? new DatabaseStorage()
   : new MemStorage();
